@@ -1,0 +1,21 @@
+<odoo>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<data>
+<record id="penalty_ready_2_done" model="base.automation">
+    <field name="action_server_id" ref="penalty_action_done" />
+    <field name="trigger">on_write</field>
+    <field name="filter_pre_domain">[('reconcile','=',False)]</field>
+    <field name="filter_domain">[('reconcile','=',True)]</field>
+</record>
+
+<record id="penalty_ready_2_open" model="base.automation">
+    <field name="action_server_id" ref="penalty_action_open" />
+    <field name="trigger">on_write</field>
+    <field name="filter_pre_domain">[('reconcile','=',True)]</field>
+    <field name="filter_domain">[('reconcile','=',False)]</field>
+</record>
+
+</data>
+</odoo>

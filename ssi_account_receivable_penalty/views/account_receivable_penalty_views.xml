@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="receivable_penalty_view_search" model="ir.ui.view">
+        <field name="name">account.receivable_penalty - search</field>
+        <field name="model">account.receivable_penalty</field>
+    <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position='after'>
+                <field name="base_move_line_id" />
+                <field name="type_id" />
+                <field name="journal_id" />
+                <field name="receivable_account_id" />
+                <field name="income_account_id" />
+                <field name="receivable_move_line_id" />
+                <field name="move_id" />
+            </xpath>
+            <xpath expr="//filter[@name='grp_responsible']" position='after'>
+                <filter
+                        name="grp_base_move_line"
+                        string="Base Move Line"
+                        context="{'group_by':'base_move_line_id'}"
+                    />
+                <filter
+                        name="grp_type_id"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                <filter
+                        name="grp_journal"
+                        string="Journal"
+                        context="{'group_by':'journal_id'}"
+                    />
+                <filter
+                        name="grp_receivable_account"
+                        string="Receivable Account"
+                        context="{'group_by':'receivable_account_id'}"
+                    />
+                <filter
+                        name="grp_income_account"
+                        string="Income Account"
+                        context="{'group_by':'income_account_id'}"
+                    />
+                <filter
+                        name="grp_receivable_move_line"
+                        string="Receivable Move Line"
+                        context="{'group_by':'receivable_move_line_id'}"
+                    />
+                <filter
+                        name="grp_move_id"
+                        string="Move"
+                        context="{'group_by':'move_id'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_view_tree" model="ir.ui.view">
+    <field name="name">account.receivable_penalty - tree</field>
+    <field name="model">account.receivable_penalty</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="type_id" />
+                <field name="date" />
+                <field
+                        name="amount_untaxed"
+                        string="Untaxed"
+                        sum="Untaxed"
+                        decoration-bf="1"
+                        optional="show"
+                    />
+                <field
+                        name="amount_tax"
+                        string="Tax"
+                        sum="Tax"
+                        decoration-bf="1"
+                        optional="show"
+                    />
+                <field
+                        name="amount_total"
+                        string="Total"
+                        sum="Total"
+                        decoration-bf="1"
+                        optional="show"
+                    />
+                <field
+                        name="amount_paid"
+                        string="Paid"
+                        sum="Paid"
+                        decoration-bf="1"
+                        optional="show"
+                    />
+                <field
+                        name="amount_residual"
+                        string="Residual"
+                        sum="Residual"
+                        decoration-bf="1"
+                        optional="show"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_view_form" model="ir.ui.view">
+    <field name="name">account.receivable_penalty - form</field>
+    <field name="model">account.receivable_penalty</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field
+                        name="allowed_base_move_line_ids"
+                        widget="many2many_tags"
+                        invisible="1"
+                    />
+                <field
+                        name="base_move_line_id"
+                        domain="[('id', 'in', allowed_base_move_line_ids)]"
+                    />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="type_id" />
+                <field name="date" />
+            </xpath>
+            <xpath expr="//page[@name='note']" position="before">
+                <page name="page_computation" string="Computations">
+                    <button
+                            name="action_populate"
+                            string="Populate"
+                            type="object"
+                            states="draft"
+                            class="oe_highlight"
+                            icon="fa-cogs"
+                            style="margin-right:4px"
+                        />
+                    <button
+                            name="action_clear_computation"
+                            string="Clear All"
+                            type="object"
+                            states="draft"
+                            class="oe_highlight"
+                            icon="fa-refresh"
+                            style="margin-right:4px"
+                        />
+                    <group
+                            name="grp_computation"
+                            colspan="4"
+                            col="2"
+                            string="Computations"
+                        >
+                        <field
+                                name="allowed_computation_ids"
+                                widget="many2many_tags"
+                                invisible="1"
+                            />
+                    </group>
+                    <field
+                            name="computation_ids"
+                            domain="[('id', 'in', allowed_computation_ids)]"
+                            widget="many2many"
+                            nolabel="1"
+                            context="{'tree_view_ref': 'ssi_account_receivable_penalty.receivable_penalty_computation_view_tree_2'}"
+                        />
+                    <button
+                            name="action_compute_tax"
+                            string="Recompute Tax"
+                            type="object"
+                            class="oe_highlight"
+                            icon="fa-calculator"
+                            states="draft"
+                        />
+                    <group name="grp_tax" colspan="4" col="2" string="Taxes">
+                        <field name="tax_ids" widget="many2many_tags" />
+                        <field name="penalty_tax_ids">
+                            <tree editable="top">
+                                <field name="tax_id" />
+                                <field name="account_id" />
+                                <field name="base_amount" />
+                                <field name="tax_amount" />
+                            </tree>
+                            <form>
+                                <group name="tax" colspan="4" col="2">
+                                    <field name="tax_id" />
+                                    <field name="account_id" />
+                                    <field name="base_amount" />
+                                    <field name="tax_amount" />
+                                </group>
+                            </form>
+                        </field>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="amount_untaxed" />
+                        <field name="amount_tax" />
+                        <field name="amount_total" />
+                        <field name="amount_paid" />
+                        <field name="amount_residual" />
+                    </group>
+                </page>
+                <page name="page_accounting" string="Accounting">
+                    <group name="grp_accounting" colspan="4" col="2">
+                        <group name="grp_accounting_1" colspan="1" col="2">
+                            <field name="journal_id" />
+                            <field name="receivable_account_id" />
+                            <field name="income_account_id" />
+                        </group>
+                        <group name="grp_accounting_2" colspan="1" col="2">
+                            <field name="receivable_move_line_id" />
+                            <field name="move_id" />
+                            <field name="reconcile" />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_action" model="ir.actions.act_window">
+    <field name="name">Receivable Penalty</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.receivable_penalty</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="receivable_penalty_menu"
+        name="Receivable Penalty"
+        parent="ssi_financial_accounting.menu_account_receivable"
+        action="receivable_penalty_action"
+        groups="receivable_penalty_viewer_group"
+        sequence="100"
+    />
+
+</odoo>

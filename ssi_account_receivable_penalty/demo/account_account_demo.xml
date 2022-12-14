@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="demo_account1" model="account.account">
+    <field name="name">Receivable Penalty - (test)</field>
+    <field name="code">XARP01</field>
+    <field name="user_type_id" ref="account.data_account_type_receivable" />
+    <field name="internal_type">receivable</field>
+    <field name="reconcile" eval="1" />
+</record>
+
+<record id="demo_account2" model="account.account">
+    <field name="name">Penalty Income  - (test)</field>
+    <field name="code">XARP02</field>
+    <field name="user_type_id" ref="account.data_account_type_other_income" />
+    <field name="internal_type">other</field>
+</record>
+
+<record id="demo_account3" model="account.account">
+    <field name="name">Receivable - (test)</field>
+    <field name="code">XARP03</field>
+    <field name="user_type_id" ref="account.data_account_type_receivable" />
+    <field name="internal_type">receivable</field>
+    <field name="reconcile" eval="1" />
+</record>
+
+</odoo>

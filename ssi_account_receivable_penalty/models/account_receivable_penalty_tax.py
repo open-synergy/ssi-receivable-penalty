@@ -86,7 +86,7 @@ class AccountReceivablePenaltyTax(models.Model):
             penalty.company_currency_id,
         )
 
-        if amount > 0.0:
+        if amount < 0.0:
             debit = abs(amount)
         else:
             credit = abs(amount)

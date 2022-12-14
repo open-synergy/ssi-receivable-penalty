@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<!-- Loan Out -->
+<record id="demo_recaivable_penalty1" model="account.receivable_penalty_type">
+    <field name="name">Test - (test)</field>
+    <field name="code">X001</field>
+    <field name="journal_id" ref="demo_journal1" />
+    <field name="receivable_account_id" ref="demo_account1" />
+    <field name="income_account_id" ref="demo_account2" />
+    <field name="account_ids" eval="[(6, 0, [ref('demo_account3')])]" />
+</record>
+
+</odoo>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<record id="receivable_penalty_type_view_search" model="ir.ui.view">
+    <field name="name">account.receivable_penalty_type - search</field>
+    <field name="model">account.receivable_penalty_type</field>
+    <field
+            name="inherit_id"
+            ref="ssi_master_data_mixin.mixin_master_data_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data />
+    </field>
+</record>
+
+<record id="receivable_penalty_type_view_tree" model="ir.ui.view">
+    <field name="name">account.receivable_penalty_type - tree</field>
+    <field name="model">account.receivable_penalty_type</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_tree" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data />
+    </field>
+</record>
+
+<record id="receivable_penalty_type_view_form" model="ir.ui.view">
+    <field name="name">account.receivable_penalty_type - form</field>
+    <field name="model">account.receivable_penalty_type</field>
+    <field name="inherit_id" ref="ssi_master_data_mixin.mixin_master_data_view_form" />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//notebook/page[@name='note']" position="before">
+                <page name="page_accounts" string="Accounting">
+                    <group name="grp_accounts" colspan="4" col="2">
+                        <field name="journal_id" />
+                        <field name="receivable_account_id" />
+                        <field name="income_account_id" />
+                        <field
+                                name="account_ids"
+                                widget="many2many_tags"
+                                string="Allowed Accounts"
+                            />
+                    </group>
+                </page>
+                <page name="page_base_amount" string="Base Amount Python">
+                    <group name="grp_base_amount" colspan="4" col="2">
+                        <field
+                                string="Python"
+                                name="base_amount_python"
+                                colspan="4"
+                                widget="ace"
+                            />
+                    </group>
+                </page>
+                <page name="page_penalty_amount" string="Penalty Amount Python">
+                    <group name="grp_penalty_amount" colspan="4" col="2">
+                        <field
+                                string="Python"
+                                name="penalty_amount_python"
+                                colspan="4"
+                                widget="ace"
+                            />
+                    </group>
+                </page>
+                <page name="page_condition" string="Condition Python">
+                    <group name="grp_condition" colspan="4" col="2">
+                        <field
+                                string="Python"
+                                name="condition_python"
+                                colspan="4"
+                                widget="ace"
+                            />
+                    </group>
+                </page>
+                <page name="page_cron" string="Cron">
+                    <button
+                            name="action_create_cron"
+                            string="Create"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('cron_id', '!=',False)]}"
+                        />
+                    <button
+                            name="action_delete_cron"
+                            string="Delete"
+                            type="object"
+                            class="oe_highlight"
+                            attrs="{'invisible': [('cron_id', '=',False)]}"
+                        />
+                    <group name="grp_cron" colspan="4" col="2">
+                        <field name="cron_id" />
+                    </group>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_type_action" model="ir.actions.act_window">
+    <field name="name">Receivable Penalty Types</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.receivable_penalty_type</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="receivable_penalty_type_menu"
+        name="Receivable Penalty Types"
+        parent="ssi_financial_accounting.menu_misc_configuration"
+        action="receivable_penalty_type_action"
+        groups="receivable_penalty_type_group"
+        sequence="10"
+    />
+
+</odoo>

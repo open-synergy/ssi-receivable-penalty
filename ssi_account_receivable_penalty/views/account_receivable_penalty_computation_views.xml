@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="receivable_penalty_computation_view_search" model="ir.ui.view">
+        <field name="name">account.receivable_penalty_computation - search</field>
+        <field name="model">account.receivable_penalty_computation</field>
+    <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position='after'>
+                <field name="penalty_id" />
+                <field name="base_move_line_id" />
+                <field name="type_id" />
+            </xpath>
+            <xpath expr="//filter[@name='grp_responsible']" position='after'>
+                <filter
+                        name="grp_penalty"
+                        string="Receivable Penalty"
+                        context="{'group_by':'penalty_id'}"
+                    />
+                <filter
+                        name="grp_base_move_line"
+                        string="Base Move Line"
+                        context="{'group_by':'base_move_line_id'}"
+                    />
+                <filter
+                        name="grp_type_id"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_computation_view_tree" model="ir.ui.view">
+    <field name="name">account.receivable_penalty_computation - tree</field>
+    <field name="model">account.receivable_penalty_computation</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="penalty_id" string="Receivable Penalty" />
+                <field name="type_id" />
+                <field name="date" />
+                <field name="base_amount" />
+                <field name="penalty_amount" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_computation_view_tree_2" model="ir.ui.view">
+    <field name="name">account.receivable_penalty_computation - tree 2</field>
+    <field name="model">account.receivable_penalty_computation</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name" />
+            <field name="date" />
+            <field name="base_amount" />
+            <field name="penalty_amount" />
+            <field name="state" invisible="1" />
+        </tree>
+    </field>
+</record>
+
+<record id="receivable_penalty_computation_view_form" model="ir.ui.view">
+    <field name="name">account.receivable_penalty_computation - form</field>
+    <field name="model">account.receivable_penalty_computation</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="base_move_line_id" />
+                <field name="type_id" />
+                <field name="date" />
+                <field name="account_move_line_id" />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="base_amount" />
+                <field name="penalty_amount" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="receivable_penalty_computation_action" model="ir.actions.act_window">
+    <field name="name">Receivable Penalty Computations</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">account.receivable_penalty_computation</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="receivable_penalty_computation_menu"
+        name="Receivable Penalty Computations"
+        parent="ssi_financial_accounting.menu_account_receivable"
+        action="receivable_penalty_computation_action"
+        groups="receivable_penalty_comp_viewer_group"
+        sequence="200"
+    />
+
+</odoo>

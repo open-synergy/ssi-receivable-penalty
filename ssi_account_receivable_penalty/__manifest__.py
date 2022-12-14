@@ -31,10 +31,15 @@
         "data/approval_template_data.xml",
         "data/ir_actions_server_data.xml",
         "data/base_automation_data.xml",
+        "data/account_journal_data.xml",
         "views/account_receivable_penalty_type_views.xml",
         "views/account_receivable_penalty_computation_views.xml",
         "views/account_receivable_penalty_views.xml",
     ],
-    "demo": [],
+    "demo": [
+        "demo/account_journal_demo.xml",
+        "demo/account_account_demo.xml",
+        "demo/account_receivable_penalty_type_demo.xml",
+    ],
     "images": [],
 }

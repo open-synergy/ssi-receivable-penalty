@@ -63,6 +63,18 @@ class AccountReceivablePenalty(models.Model):
     _create_sequence_state = "open"
 
     # FIELD
+    partner_id = fields.Many2one(
+        string="Partner",
+        comodel_name="res.partner",
+        required=True,
+        readonly=True,
+        ondelete="restrict",
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
     type_id = fields.Many2one(
         string="Type",
         comodel_name="account.receivable_penalty_type",
@@ -85,23 +97,34 @@ class AccountReceivablePenalty(models.Model):
             ],
         },
     )
+    date_due = fields.Date(
+        string="Date Due",
+        required=True,
+        readonly=True,
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
 
     @api.depends(
         "type_id",
+        "partner_id",
     )
     def _compute_allowed_base_move_line_ids(self):
-        obj_account_move_line = self.env["account.move.line"]
+        AML = self.env["account.move.line"]
         for document in self:
             result = []
-            criteria = [
-                ("account_id.reconcile", "!=", False),
-                ("reconciled", "=", False),
-                ("account_id", "in", document.type_id.account_ids.ids),
-                ("debit", ">", 0),
-            ]
-            move_line_ids = obj_account_move_line.search(criteria)
-            if move_line_ids:
-                result = move_line_ids.ids
+            if document.partner_id and document.type_id:
+                ttype = document.type_id
+                criteria = [
+                    ("reconciled", "=", False),
+                    ("account_id", "in", ttype.account_ids.ids),
+                    ("debit", ">", 0),
+                    ("partner_id", "=", document.partner_id.id),
+                ]
+                result = AML.search(criteria).ids
             document.allowed_base_move_line_ids = result
 
     allowed_base_move_line_ids = fields.Many2many(
@@ -120,6 +143,12 @@ class AccountReceivablePenalty(models.Model):
                 ("readonly", False),
             ],
         },
+    )
+    base_move_id = fields.Many2one(
+        string="# Base Accounting Entry",
+        comodel_name="account.move",
+        related="base_move_line_id.move_id",
+        store=True,
     )
     journal_id = fields.Many2one(
         string="Journal",
@@ -305,9 +334,9 @@ class AccountReceivablePenalty(models.Model):
             if document.receivable_move_line_id:
                 move_line = document.receivable_move_line_id
                 if not currency:
-                    residual = -1.0 * move_line.amount_residual
+                    residual = move_line.amount_residual
                 else:
-                    residual = -1.0 * move_line.amount_residual_currency
+                    residual = move_line.amount_residual_currency
                 paid = document.amount_total - residual
             document.amount_paid = paid
             document.amount_residual = residual
@@ -465,7 +494,7 @@ class AccountReceivablePenalty(models.Model):
             self.company_currency_id,
         )
 
-        if amount < 0.0:
+        if amount > 0.0:
             debit = abs(amount)
         else:
             credit = abs(amount)
@@ -486,6 +515,7 @@ class AccountReceivablePenalty(models.Model):
             "credit": credit,
             "currency_id": self.company_currency_id.id,
             "amount_currency": amount_currency,
+            "date_maturity": self.date_due,
         }
         return data
 

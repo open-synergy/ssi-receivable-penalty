@@ -14,9 +14,10 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='user_id']" position='after'>
+                <field name="partner_id" />
+                <field name="type_id" />
                 <field name="penalty_id" />
                 <field name="base_move_line_id" />
-                <field name="type_id" />
             </xpath>
             <xpath expr="//filter[@name='grp_responsible']" position='after'>
                 <filter
@@ -47,8 +48,11 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='company_id']" position="after">
-                <field name="penalty_id" string="Receivable Penalty" />
+                <field name="company_currency_id" invisible="1" />
+                <field name="partner_id" />
                 <field name="type_id" />
+                <field name="base_move_id" />
+                <field name="penalty_id" />
                 <field name="date" />
                 <field name="base_amount" />
                 <field name="penalty_amount" />
@@ -64,6 +68,7 @@
         <tree>
             <field name="name" />
             <field name="date" />
+            <field name="company_currency_id" invisible="1" />
             <field name="base_amount" />
             <field name="penalty_amount" />
             <field name="state" invisible="1" />
@@ -79,21 +84,38 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='user_id']" position="after">
-                <field name="base_move_line_id" />
+                <field name="company_currency_id" invisible="1" />
                 <field name="type_id" />
+                <field name="partner_id" />
+                <field
+                        name="allowed_base_move_line_ids"
+                        widget="many2many_widget"
+                        invisible="1"
+                    />
+                <field
+                        name="base_move_line_id"
+                        domain="[('id','in',allowed_base_move_line_ids)]"
+                    />
+                <field name="base_move_id" />
                 <field name="date" />
-                <field name="account_move_line_id" />
             </xpath>
             <xpath expr="//group[@name='header_right']" position="inside">
                 <field name="base_amount" />
                 <field name="penalty_amount" />
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page name="accounting" string="Accounting">
+                    <group name="accounting" colspan="4" col="2">
+                        <field name="account_move_line_id" />
+                    </group>
+                </page>
             </xpath>
         </data>
     </field>
 </record>
 
 <record id="receivable_penalty_computation_action" model="ir.actions.act_window">
-    <field name="name">Receivable Penalty Computations</field>
+    <field name="name">Penalty Computations</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">account.receivable_penalty_computation</field>
     <field name="view_mode">tree,form</field>
@@ -101,7 +123,7 @@
 
 <menuitem
         id="receivable_penalty_computation_menu"
-        name="Receivable Penalty Computations"
+        name="Penalty Computations"
         parent="ssi_financial_accounting.menu_account_receivable"
         action="receivable_penalty_computation_action"
         groups="receivable_penalty_comp_viewer_group"

@@ -71,21 +71,25 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='company_id']" position="after">
+                <field name="partner_id" />
                 <field name="type_id" />
+                <field name="base_move_id" />
                 <field name="date" />
+                <field name="date_due" />
+                <field name="company_currency_id" invisible="1" />
                 <field
                         name="amount_untaxed"
                         string="Untaxed"
                         sum="Untaxed"
                         decoration-bf="1"
-                        optional="show"
+                        optional="hide"
                     />
                 <field
                         name="amount_tax"
                         string="Tax"
                         sum="Tax"
                         decoration-bf="1"
-                        optional="show"
+                        optional="dide"
                     />
                 <field
                         name="amount_total"
@@ -121,6 +125,9 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//field[@name='user_id']" position="after">
+                <field name="partner_id" />
+                <field name="type_id" />
+                <field name="company_currency_id" invisible="1" />
                 <field
                         name="allowed_base_move_line_ids"
                         widget="many2many_tags"
@@ -130,10 +137,11 @@
                         name="base_move_line_id"
                         domain="[('id', 'in', allowed_base_move_line_ids)]"
                     />
+                <field name="base_move_id" />
             </xpath>
             <xpath expr="//group[@name='header_right']" position="inside">
-                <field name="type_id" />
                 <field name="date" />
+                <field name="date_due" />
             </xpath>
             <xpath expr="//page[@name='note']" position="before">
                 <page name="page_computation" string="Computations">
@@ -229,7 +237,7 @@
 </record>
 
 <record id="receivable_penalty_action" model="ir.actions.act_window">
-    <field name="name">Receivable Penalty</field>
+    <field name="name">Penalties</field>
     <field name="type">ir.actions.act_window</field>
     <field name="res_model">account.receivable_penalty</field>
     <field name="view_mode">tree,form</field>
@@ -237,7 +245,7 @@
 
 <menuitem
         id="receivable_penalty_menu"
-        name="Receivable Penalty"
+        name="Penalties"
         parent="ssi_financial_accounting.menu_account_receivable"
         action="receivable_penalty_action"
         groups="receivable_penalty_viewer_group"

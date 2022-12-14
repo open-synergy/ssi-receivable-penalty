@@ -58,10 +58,51 @@ class AccountReceivablePenaltyComputation(models.Model):
 
     # FIELD
     penalty_id = fields.Many2one(
-        string="Penalty",
+        string="# Penalty",
         comodel_name="account.receivable_penalty",
         required=False,
-        ondelete="cascade",
+        ondelete="set null",
+    )
+    partner_id = fields.Many2one(
+        string="Partner",
+        comodel_name="res.partner",
+        domain=[
+            ("parent_id", "=", False),
+        ],
+        required=True,
+        readonly=True,
+        ondelete="restrict",
+        states={
+            "draft": [
+                ("readonly", False),
+            ],
+        },
+    )
+
+    @api.depends(
+        "partner_id",
+        "type_id",
+    )
+    def _compute_allowed_base_move_line_ids(self):
+        AML = self.env["account.move.line"]
+        for record in self:
+            result = []
+            if record.partner_id and record.type_id:
+                ttype = record.type_id
+                criteria = [
+                    ("partner_id.id", "=", record.partner_id.id),
+                    ("account_id.id", "in", ttype.account_ids.ids),
+                    ("debit", ">", 0.0),
+                    ("reconciled", "=", False),
+                ]
+                result = AML.search(criteria).ids
+            record.allowed_base_move_line_ids = result
+
+    allowed_base_move_line_ids = fields.Many2many(
+        string="Allowed Base Move Line",
+        comodel_name="account.move.line",
+        compute="_compute_allowed_base_move_line_ids",
+        store=False,
     )
     base_move_line_id = fields.Many2one(
         string="Base Move Line",
@@ -73,6 +114,12 @@ class AccountReceivablePenaltyComputation(models.Model):
                 ("readonly", False),
             ],
         },
+    )
+    base_move_id = fields.Many2one(
+        string="# Base Accounting Entry",
+        comodel_name="account.move",
+        related="base_move_line_id.move_id",
+        store=True,
     )
     type_id = fields.Many2one(
         string="Type",
@@ -99,10 +146,12 @@ class AccountReceivablePenaltyComputation(models.Model):
     base_amount = fields.Monetary(
         string="Base Amount",
         currency_field="company_currency_id",
+        required=True,
     )
     penalty_amount = fields.Monetary(
         string="Penalty Amount",
         currency_field="company_currency_id",
+        required=True,
     )
     account_move_line_id = fields.Many2one(
         string="# Move Line",
@@ -197,7 +246,7 @@ class AccountReceivablePenaltyComputation(models.Model):
             penalty.company_currency_id,
         )
 
-        if amount > 0.0:
+        if amount < 0.0:
             debit = abs(amount)
         else:
             credit = abs(amount)

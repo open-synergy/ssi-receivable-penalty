@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl). -->
+<odoo>
+<!-- Loan Out -->
+<record id="demo_journal1" model="account.journal">
+    <field name="name">Receivable Penalty - (test)</field>
+    <field name="code">XARP</field>
+    <field name="type">general</field>
+</record>
+
+</odoo>

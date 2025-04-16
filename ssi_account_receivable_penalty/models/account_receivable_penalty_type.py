@@ -110,6 +110,7 @@ result = True""",
         self.ensure_one()
         return {
             "base_move_line_id": move_line.id,
+            "partner_id": move_line.partner_id.id,
             "type_id": self.id,
             "date": fields.Date.context_today(self),
             "base_amount": self._evaluate_python(move_line, self.base_amount_python),
@@ -138,6 +139,7 @@ result = True""",
                 ("reconciled", "=", False),
                 ("account_id", "in", document.account_ids.ids),
                 ("debit", ">", 0),
+                ("partner_id", "!=", False),
             ]
             move_line_ids = obj_account_move_line.search(criteria)
             if move_line_ids:

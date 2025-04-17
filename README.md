@@ -14,7 +14,11 @@ None
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[ssi_account_receivable_penalty](ssi_account_receivable_penalty/) | 14.0.1.0.0 |  | Account Receivable Penalty
 
 [//]: # (end addons)
 

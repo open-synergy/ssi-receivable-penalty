@@ -132,7 +132,6 @@ result = True""",
 
     def cron_create_penalty_computation(self):
         obj_account_move_line = self.env["account.move.line"]
-        obj_penalty_computation = self.env["account.receivable_penalty_computation"]
         for document in self:
             criteria = [
                 ("account_id.reconcile", "!=", False),
@@ -144,8 +143,11 @@ result = True""",
             move_line_ids = obj_account_move_line.search(criteria)
             if move_line_ids:
                 for move_line in move_line_ids:
-                    _check = self._evaluate_python(move_line, self.condition_python)
-                    if _check:
-                        obj_penalty_computation.create(
-                            self._prepare_computation_data(move_line)
-                        )
+                    self.create_penalty_computation(move_line)
+
+    def create_penalty_computation(self, move_line):
+        self.ensure_one()
+        PenaltyComputation = self.env["account.receivable_penalty_computation"]
+        _check = self._evaluate_python(move_line, self.condition_python)
+        if _check:
+            PenaltyComputation.create(self._prepare_computation_data(move_line))

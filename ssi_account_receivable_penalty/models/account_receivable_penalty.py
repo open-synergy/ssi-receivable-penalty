@@ -1,6 +1,7 @@
 # Copyright 2022 OpenSynergy Indonesia
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+
 from odoo import api, fields, models
 
 from odoo.addons.ssi_decorator import ssi_decorator
@@ -9,10 +10,10 @@ from odoo.addons.ssi_decorator import ssi_decorator
 class AccountReceivablePenalty(models.Model):
     _name = "account.receivable_penalty"
     _inherit = [
-        "mixin.transaction_confirm",
-        "mixin.transaction_open",
-        "mixin.transaction_done",
         "mixin.transaction_cancel",
+        "mixin.transaction_done",
+        "mixin.transaction_open",
+        "mixin.transaction_confirm",
         "mixin.company_currency",
     ]
     _description = "Account Receivable Penalty"
@@ -570,3 +571,9 @@ class AccountReceivablePenalty(models.Model):
                 }
             )
             move.unlink()
+
+    @ssi_decorator.insert_on_form_view()
+    def _insert_form_element(self, view_arch):
+        if self._automatically_insert_view_element:
+            view_arch = self._reconfigure_statusbar_visible(view_arch)
+        return view_arch

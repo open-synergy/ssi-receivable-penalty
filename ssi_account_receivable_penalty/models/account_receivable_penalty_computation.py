@@ -1,15 +1,18 @@
 # Copyright 2022 OpenSynergy Indonesia
 # Copyright 2022 PT. Simetri Sinergi Indonesia
-# License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
+
 from odoo import api, fields, models
+
+from odoo.addons.ssi_decorator import ssi_decorator
 
 
 class AccountReceivablePenaltyComputation(models.Model):
     _name = "account.receivable_penalty_computation"
     _inherit = [
-        "mixin.transaction_confirm",
-        "mixin.transaction_done",
         "mixin.transaction_cancel",
+        "mixin.transaction_done",
+        "mixin.transaction_confirm",
         "mixin.company_currency",
     ]
     _description = "Account Receivable Penalty Computation"
@@ -62,6 +65,7 @@ class AccountReceivablePenaltyComputation(models.Model):
         comodel_name="account.receivable_penalty",
         required=False,
         ondelete="set null",
+        readonly=True,
     )
     partner_id = fields.Many2one(
         string="Partner",
@@ -159,19 +163,6 @@ class AccountReceivablePenaltyComputation(models.Model):
         readonly=True,
         copy=False,
     )
-    state = fields.Selection(
-        string="State",
-        default="draft",
-        required=True,
-        readonly=True,
-        selection=[
-            ("draft", "Draft"),
-            ("confirm", "Waiting for Approval"),
-            ("done", "Done"),
-            ("cancel", "Cancelled"),
-            ("reject", "Rejected"),
-        ],
-    )
 
     @api.model
     def _get_policy_field(self):
@@ -252,3 +243,9 @@ class AccountReceivablePenaltyComputation(models.Model):
             credit = abs(amount)
 
         return debit, credit, amount_currency
+
+    @ssi_decorator.insert_on_form_view()
+    def _insert_form_element(self, view_arch):
+        if self._automatically_insert_view_element:
+            view_arch = self._reconfigure_statusbar_visible(view_arch)
+        return view_arch

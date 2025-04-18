@@ -62,6 +62,7 @@ class AccountReceivablePenaltyComputation(models.Model):
         comodel_name="account.receivable_penalty",
         required=False,
         ondelete="set null",
+        readonly=True,
     )
     partner_id = fields.Many2one(
         string="Partner",

@@ -21,20 +21,26 @@
             </xpath>
             <xpath expr="//filter[@name='grp_responsible']" position='after'>
                 <filter
+                        name="grp_partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                <filter
                         name="grp_penalty"
-                        string="Receivable Penalty"
+                        string="# Penalty"
                         context="{'group_by':'penalty_id'}"
                     />
                 <filter
-                        name="grp_base_move_line"
-                        string="Base Move Line"
-                        context="{'group_by':'base_move_line_id'}"
+                        name="grp_base_move_id"
+                        string="# Base Accounting Entry"
+                        context="{'group_by':'base_move_id'}"
                     />
                 <filter
                         name="grp_type_id"
                         string="Type"
                         context="{'group_by':'type_id'}"
                     />
+                <filter name="grp_date" string="Date" context="{'group_by':'date'}" />
             </xpath>
         </data>
     </field>
@@ -54,8 +60,8 @@
                 <field name="base_move_id" />
                 <field name="penalty_id" />
                 <field name="date" />
-                <field name="base_amount" />
-                <field name="penalty_amount" />
+                <field name="base_amount" sum="Total Base Amount" />
+                <field name="penalty_amount" sum="Total Penalty Amount" />
             </xpath>
         </data>
     </field>
@@ -106,6 +112,7 @@
             <xpath expr="//page[1]" position="before">
                 <page name="accounting" string="Accounting">
                     <group name="accounting" colspan="4" col="2">
+                        <field name="penalty_id" />
                         <field name="account_move_line_id" />
                     </group>
                 </page>

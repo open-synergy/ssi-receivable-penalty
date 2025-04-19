@@ -32,6 +32,7 @@
         "data/ir_actions_server_data.xml",
         "data/base_automation_data.xml",
         "data/account_journal_data.xml",
+        "wizards/create_penalty_from_computation_views.xml",
         "views/account_receivable_penalty_type_views.xml",
         "views/account_receivable_penalty_computation_views.xml",
         "views/account_receivable_penalty_views.xml",

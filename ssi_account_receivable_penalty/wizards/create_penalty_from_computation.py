@@ -144,7 +144,8 @@ class CreatePenaltyFromComputationSummary(models.Model):
         penalty.action_compute_tax()
 
     def _prepare_penalty_data(self):
-        return {
+        tax_ids = self.type_id.default_tax_ids.ids or False
+        result = {
             "partner_id": self.partner_id.id,
             "type_id": self.type_id.id,
             "base_move_line_id": self.base_move_line_id.id,
@@ -154,3 +155,6 @@ class CreatePenaltyFromComputationSummary(models.Model):
             "receivable_account_id": self.type_id.receivable_account_id.id,
             "income_account_id": self.type_id.income_account_id.id,
         }
+        if tax_ids:
+            result.update({"tax_ids": [(6, 0, tax_ids)]})
+        return result

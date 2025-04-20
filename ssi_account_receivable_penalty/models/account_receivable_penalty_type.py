@@ -73,6 +73,13 @@ result = True""",
         column1="type_id",
         column2="account_id",
     )
+    default_tax_ids = fields.Many2many(
+        string="Default Taxes",
+        comodel_name="account.tax",
+        relation="rel_receivable_penalty_type_2_tax",
+        column1="type_id",
+        column2="tax_id",
+    )
 
     def _get_policy_localdict(self, move_line):
         self.ensure_one()

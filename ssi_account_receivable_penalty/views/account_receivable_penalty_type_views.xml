@@ -44,6 +44,8 @@
                                 widget="many2many_tags"
                                 string="Allowed Accounts"
                             />
+
+                        <field name="default_tax_ids" widget="many2many_tags" />
                     </group>
                 </page>
                 <page name="page_base_amount" string="Base Amount Python">

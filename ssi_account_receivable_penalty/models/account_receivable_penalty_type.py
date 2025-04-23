@@ -2,7 +2,7 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, fields, models
+from odoo import _, fields, models, tools
 from odoo.exceptions import Warning as UserError
 from odoo.tools.safe_eval import safe_eval
 
@@ -86,6 +86,9 @@ result = True""",
         return {
             "env": self.env,
             "document": move_line,
+            "time": tools.safe_eval.time,
+            "datetime": tools.safe_eval.datetime,
+            "dateutil": tools.safe_eval.dateutil,
         }
 
     def _evaluate_python(self, move_line, python_code):

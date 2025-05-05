@@ -206,6 +206,21 @@ class AccountReceivablePenalty(models.Model):
         compute_sudo=True,
         store=False,
     )
+    move_line_payment_ids = fields.Many2many(
+        string="Payments",
+        related="move_id.move_line_payment_ids",
+        store=False,
+    )
+    last_payment_date = fields.Date(
+        string="Last Payment Date",
+        related="move_id.last_payment_date",
+        store=True,
+    )
+    last_payment_line_id = fields.Many2one(
+        string="#Last Payment Line",
+        related="move_id.last_payment_line_id",
+        store=True,
+    )
 
     @api.depends(
         "move_id",

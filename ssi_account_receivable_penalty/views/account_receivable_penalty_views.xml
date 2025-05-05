@@ -22,6 +22,25 @@
                 <field name="receivable_move_line_id" />
                 <field name="move_id" />
             </xpath>
+            <xpath expr="//filter[@name='dom_my_data']" position="after">
+                <separator name="separator_payment_status" />
+                <filter
+                        name="dom_unpaid"
+                        string="Unpaid"
+                        domain="[('state','=','open'),('amount_paid','=',0.0)]"
+                    />
+                <filter
+                        name="dom_partial"
+                        string="Partial Paid"
+                        domain="[('state','=','open'),('amount_paid','!=',0.0)]"
+                    />
+                <filter
+                        name="dom_partial"
+                        string="Paid"
+                        domain="[('state','=','done')]"
+                    />
+
+            </xpath>
             <xpath expr="//filter[@name='grp_responsible']" position='after'>
                 <filter
                         name="grp_base_move_line"
@@ -124,6 +143,13 @@
     <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
     <field name="arch" type="xml">
         <data>
+            <xpath expr="//div[@name='button_box']" position="after">
+                <widget
+                        name="web_ribbon"
+                        title="Partial"
+                        attrs="{'invisible': ['|',('state', '!=', 'open'), '&amp;', ('state', '=', 'open'),('amount_paid', '=', 0.0)]}"
+                    />
+            </xpath>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="partner_id" />
                 <field name="type_id" />

@@ -230,6 +230,15 @@
                             <field name="reconcile" />
                         </group>
                     </group>
+                    <separator string="Journal Items" />
+                    <field name="move_line_ids" />
+                </page>
+                <page name="payment" string="Payments">
+                    <group name="payment_1" colspan="4" col="2">
+                        <field name="last_payment_date" />
+                        <field name="last_payment_line_id" />
+                    </group>
+                    <field name="move_line_payment_ids" />
                 </page>
             </xpath>
         </data>

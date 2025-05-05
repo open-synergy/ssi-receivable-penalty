@@ -199,6 +199,39 @@ class AccountReceivablePenalty(models.Model):
         comodel_name="account.move",
         readonly=True,
     )
+    move_line_ids = fields.Many2many(
+        string="Journal Items",
+        comodel_name="account.move.line",
+        compute="_compute_move_line_ids",
+        compute_sudo=True,
+        store=False,
+    )
+    move_line_payment_ids = fields.Many2many(
+        string="Payments",
+        related="move_id.move_line_payment_ids",
+        store=False,
+    )
+    last_payment_date = fields.Date(
+        string="Last Payment Date",
+        related="move_id.last_payment_date",
+        store=True,
+    )
+    last_payment_line_id = fields.Many2one(
+        string="#Last Payment Line",
+        related="move_id.last_payment_line_id",
+        store=True,
+    )
+
+    @api.depends(
+        "move_id",
+        "move_id.line_ids",
+    )
+    def _compute_move_line_ids(self):
+        for record in self:
+            result = []
+            if record.move_id:
+                result = record.move_id.line_ids
+            record.move_line_ids = result
 
     @api.depends(
         "receivable_move_line_id",

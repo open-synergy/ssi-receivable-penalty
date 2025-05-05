@@ -230,6 +230,8 @@
                             <field name="reconcile" />
                         </group>
                     </group>
+                    <separator string="Journal Items" />
+                    <field name="move_line_ids" />
                 </page>
             </xpath>
         </data>

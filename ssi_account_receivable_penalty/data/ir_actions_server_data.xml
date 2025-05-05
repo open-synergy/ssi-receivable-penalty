@@ -7,14 +7,18 @@
     <field name="name">Action Open</field>
     <field name="model_id" ref="model_account_receivable_penalty" />
     <field name="state">code</field>
-    <field name="code">records.action_open()</field>
+    <field
+                name="code"
+            >records.with_context(bypass_policy_check=True).action_open()</field>
 </record>
 
 <record id="penalty_action_done" model="ir.actions.server">
     <field name="name">Action Done</field>
     <field name="model_id" ref="model_account_receivable_penalty" />
     <field name="state">code</field>
-    <field name="code">records.action_done()</field>
+    <field
+                name="code"
+            >records.with_context(bypass_policy_check=True).action_done()</field>
 </record>
 </data>
 </odoo>

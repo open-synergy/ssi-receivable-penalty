@@ -578,6 +578,9 @@ class AccountReceivablePenalty(models.Model):
     @ssi_decorator.post_open_action()
     def _create_accounting_entry(self):
         self.ensure_one()
+        if self.move_id:
+            return True
+
         move = (
             self.env["account.move"]
             .with_context(check_move_validity=False)

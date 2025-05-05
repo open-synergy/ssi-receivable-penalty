@@ -815,8 +815,19 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_tree
 msgid "Paid"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_form
+msgid "Partial"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_search
+msgid "Partial Paid"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -1060,6 +1071,11 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_exception_decoration
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_exception_decoration
 msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_search
+msgid "Unpaid"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty

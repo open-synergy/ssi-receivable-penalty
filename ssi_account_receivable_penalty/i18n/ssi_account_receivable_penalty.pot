@@ -500,6 +500,7 @@ msgid "Details"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__display_name
@@ -565,6 +566,7 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__id
@@ -632,6 +634,11 @@ msgid "Journal"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model,name:ssi_account_receivable_penalty.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__account_move_line_id
 msgid "Journal Item"
 msgstr ""
@@ -643,6 +650,7 @@ msgid "Journal Items"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax____last_update
@@ -943,6 +951,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__rejected
 #: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__reject
 msgid "Rejected"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_bank_statement_line__receivable_penalty_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__receivable_penalty_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_payment__receivable_penalty_ids
+msgid "Related Receivable Penalties"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty

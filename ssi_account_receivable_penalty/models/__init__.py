@@ -6,4 +6,5 @@ from . import (
     account_receivable_penalty_computation,
     account_receivable_penalty_tax,
     account_receivable_penalty,
+    account_move,
 )

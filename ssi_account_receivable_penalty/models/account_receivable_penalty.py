@@ -387,20 +387,6 @@ class AccountReceivablePenalty(models.Model):
         store=True,
         currency_field="company_currency_id",
     )
-    state = fields.Selection(
-        string="State",
-        default="draft",
-        required=True,
-        readonly=True,
-        selection=[
-            ("draft", "Draft"),
-            ("confirm", "Waiting for Approval"),
-            ("open", "In Progress"),
-            ("done", "Done"),
-            ("cancel", "Cancelled"),
-            ("reject", "Rejected"),
-        ],
-    )
 
     @api.model
     def _get_policy_field(self):

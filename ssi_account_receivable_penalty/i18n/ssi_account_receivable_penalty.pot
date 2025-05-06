@@ -199,6 +199,7 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__amount_residual
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__amount_residual
 msgid "Amount Residual"
 msgstr ""
 
@@ -356,11 +357,6 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
-#: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__cancel
-msgid "Cancelled"
-msgstr ""
-
-#. module: ssi_account_receivable_penalty
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_form
 msgid "Clear All"
 msgstr ""
@@ -485,6 +481,11 @@ msgid "Date Due"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__days_overdue
+msgid "Days Overdue"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__default_tax_ids
 msgid "Default Taxes"
 msgstr ""
@@ -511,22 +512,12 @@ msgid "Display Name"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
-#: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__done
-msgid "Done"
-msgstr ""
-
-#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__done_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__done_ok
 msgid ""
 "Done policy\n"
 "\n"
 "* If active user can see and execute 'Done' button"
-msgstr ""
-
-#. module: ssi_account_receivable_penalty
-#: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__draft
-msgid "Draft"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -605,11 +596,6 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_has_error
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
-
-#. module: ssi_account_receivable_penalty
-#: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__open
-msgid "In Progress"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -949,7 +935,6 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__rejected
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__rejected
-#: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__reject
 msgid "Rejected"
 msgstr ""
 
@@ -1145,11 +1130,6 @@ msgstr ""
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_viewer_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_viewer_group
 msgid "Viewer"
-msgstr ""
-
-#. module: ssi_account_receivable_penalty
-#: model:ir.model.fields.selection,name:ssi_account_receivable_penalty.selection__account_receivable_penalty__state__confirm
-msgid "Waiting for Approval"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty

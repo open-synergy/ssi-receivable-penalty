@@ -60,6 +60,8 @@
                 <field name="base_move_id" />
                 <field name="penalty_id" />
                 <field name="date" />
+                <field name="days_overdue" />
+                <field name="amount_residual" />
                 <field name="base_amount" sum="Total Base Amount" />
                 <field name="penalty_amount" sum="Total Penalty Amount" />
             </xpath>
@@ -75,6 +77,8 @@
             <field name="name" />
             <field name="date" />
             <field name="company_currency_id" invisible="1" />
+            <field name="days_overdue" />
+            <field name="amount_residual" />
             <field name="base_amount" />
             <field name="penalty_amount" />
             <field name="state" invisible="1" />
@@ -106,6 +110,8 @@
                 <field name="date" />
             </xpath>
             <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="days_overdue" />
+                <field name="amount_residual" />
                 <field name="base_amount" />
                 <field name="penalty_amount" />
             </xpath>

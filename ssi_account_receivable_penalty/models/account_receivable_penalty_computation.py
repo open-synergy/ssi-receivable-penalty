@@ -147,6 +147,19 @@ class AccountReceivablePenaltyComputation(models.Model):
             ],
         },
     )
+    days_overdue = fields.Integer(
+        string="Days Overdue",
+        compute="_compute_days_overdue",
+        store=True,
+        compute_sudo=True,
+    )
+    amount_residual = fields.Monetary(
+        string="Amount Residual",
+        compute="_compute_amount_residual",
+        currency_field="company_currency_id",
+        store=True,
+        compute_sudo=True,
+    )
     base_amount = fields.Monetary(
         string="Base Amount",
         currency_field="company_currency_id",
@@ -179,6 +192,46 @@ class AccountReceivablePenaltyComputation(models.Model):
         ]
         res += policy_field
         return res
+
+    @api.depends(
+        "base_move_line_id",
+        "date",
+    )
+    def _compute_days_overdue(self):
+        for record in self:
+            result = 0
+            if (
+                record.base_move_line_id
+                and record.date
+                and record.base_move_line_id.date_maturity
+            ):
+                dt_date_due = record.base_move_line_id.date_maturity
+                dt_date = record.date
+                result = (dt_date - dt_date_due).days
+            record.days_overdue = result
+
+    @api.depends(
+        "base_move_line_id",
+        "date",
+    )
+    def _compute_amount_residual(self):
+        for record in self:
+            result = 0.0
+            if record.base_move_line_id and record.date:
+                base_ml = record.base_move_line_id
+                lines = base_ml.matched_debit_ids.mapped(
+                    "debit_move_id"
+                ) + base_ml.matched_credit_ids.mapped("credit_move_id")
+                line_ids = lines.ids
+                criteria = [
+                    ("id", "in", line_ids),
+                    ("date", "<=", record.date),
+                ]
+                payment_lines = self.env["account.move.line"].search(criteria)
+                for payment_line in payment_lines:
+                    result += payment_line.credit + payment_line.debit
+                result = base_ml.debit - result
+            record.amount_residual = result
 
     @api.onchange(
         "type_id",

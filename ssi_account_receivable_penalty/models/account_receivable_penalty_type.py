@@ -2,6 +2,8 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from datetime import date
+
 from odoo import _, fields, models, tools
 from odoo.exceptions import Warning as UserError
 from odoo.tools.safe_eval import safe_eval
@@ -116,13 +118,16 @@ result = True""",
             "active": True,
         }
 
-    def _prepare_computation_data(self, move_line):
+    def _prepare_computation_data(self, move_line, penalty_date=False):
         self.ensure_one()
+        if not penalty_date:
+            penalty_date = date.today()
+
         return {
             "base_move_line_id": move_line.id,
             "partner_id": move_line.partner_id.id,
             "type_id": self.id,
-            "date": fields.Date.context_today(self),
+            "date": penalty_date,
             "base_amount": self._evaluate_python(move_line, self.base_amount_python),
             "penalty_amount": self._evaluate_python(
                 move_line, self.penalty_amount_python
@@ -155,9 +160,11 @@ result = True""",
                 for move_line in move_line_ids:
                     self.create_penalty_computation(move_line)
 
-    def create_penalty_computation(self, move_line):
+    def create_penalty_computation(self, move_line, penalty_date=False):
         self.ensure_one()
         PenaltyComputation = self.env["account.receivable_penalty_computation"]
         _check = self._evaluate_python(move_line, self.condition_python)
         if _check:
-            PenaltyComputation.create(self._prepare_computation_data(move_line))
+            PenaltyComputation.create(
+                self._prepare_computation_data(move_line, penalty_date)
+            )

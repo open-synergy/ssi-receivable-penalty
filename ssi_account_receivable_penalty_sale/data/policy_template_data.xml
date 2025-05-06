@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 OpenSynergy Indonesia
+     Copyright 2024 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl-3.0-standalone.html). -->
+<odoo>
+<data>
+
+<record
+            id="policy_template_sale_order_view_receivable_penalty"
+            model="policy.template_detail"
+        >
+    <field name="template_id" ref="ssi_sale.policy_template_sale_order" />
+    <field
+                name="field_id"
+                search="[('model_id.model','=','sale.order'),('name','=','receivable_penalty_ok')]"
+            />
+    <field name="restrict_state" eval="0" />
+    <field name="restrict_user" eval="1" />
+    <field name="computation_method">use_group</field>
+    <field
+                name="group_ids"
+                eval="[(6,0,[ref('ssi_account_receivable_penalty.receivable_penalty_viewer_group')])]"
+            />
+    <field name="restrict_additional" eval="0" />
+</record>
+
+</data>
+</odoo>

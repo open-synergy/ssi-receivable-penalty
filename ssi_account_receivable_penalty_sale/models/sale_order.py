@@ -56,7 +56,7 @@ class SaleOrder(models.Model):
 
     def _compute_receivable_penalty_ids(self):
         for record in self:
-            result = record.mapped("invoice_ids.receivable_penalty_ids").id
+            result = record.mapped("invoice_ids.receivable_penalty_ids.id")
             record.receivable_penalty_ids = result
 
     def action_view_penalty(self):

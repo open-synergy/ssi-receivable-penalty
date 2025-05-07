@@ -18,7 +18,7 @@ class SaleOrder(models.Model):
         store=False,
     )
 
-    receivable_penalty_ids = fields.One2many(
+    receivable_penalty_ids = fields.Many2many(
         string="Related Receivable Penalties",
         comodel_name="account.receivable_penalty",
         compute="_compute_receivable_penalty_ids",
@@ -56,7 +56,12 @@ class SaleOrder(models.Model):
 
     def _compute_receivable_penalty_ids(self):
         for record in self:
-            result = record.mapped("invoice_ids.receivable_penalty_ids").id
+            result = []
+            if record.invoice_ids:
+                for invoice in record.invoice_ids:
+                    if invoice.receivable_penalty_ids:
+                        for penalty in invoice.receivable_penalty_ids:
+                            result.append(penalty.id)
             record.receivable_penalty_ids = result
 
     def action_view_penalty(self):

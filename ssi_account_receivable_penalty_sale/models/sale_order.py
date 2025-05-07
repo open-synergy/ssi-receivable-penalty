@@ -18,7 +18,7 @@ class SaleOrder(models.Model):
         store=False,
     )
 
-    receivable_penalty_ids = fields.One2many(
+    receivable_penalty_ids = fields.Many2many(
         string="Related Receivable Penalties",
         comodel_name="account.receivable_penalty",
         compute="_compute_receivable_penalty_ids",

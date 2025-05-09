@@ -17,5 +17,19 @@
     <field name="filter_domain">[('reconcile','=',False)]</field>
 </record>
 
+<record id="batch_penalty_computation_open_2_done" model="base.automation">
+    <field name="action_server_id" ref="batch_penalty_computation_action_done" />
+    <field name="trigger">on_write</field>
+    <field name="filter_pre_domain">[('all_computation_done_ok','=',False)]</field>
+    <field name="filter_domain">[('all_computation_done_ok','=',True)]</field>
+</record>
+
+<record id="batch_penalty_computation_done_2_open" model="base.automation">
+    <field name="action_server_id" ref="batch_penalty_computation_action_open" />
+    <field name="trigger">on_write</field>
+    <field name="filter_pre_domain">[('all_computation_done_ok','=',True)]</field>
+    <field name="filter_domain">[('all_computation_done_ok','=',False)]</field>
+</record>
+
 </data>
 </odoo>

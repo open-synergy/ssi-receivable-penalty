@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-4.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record
+        id="batch_receivable_penalty_computation_workflow_module_category"
+        model="ir.module.category"
+    >
+    <field name="name">Batch Receivable Penalty Computation</field>
+    <field
+            name="parent_id"
+            ref="ssi_account_receivable_penalty.receivable_penalty_workflow_module_category"
+        />
+    <field name="sequence">4</field>
+</record>
+
+<record
+        id="batch_receivable_penalty_computation_data_ownership_module_category"
+        model="ir.module.category"
+    >
+    <field name="name">Batch Receivable Penalty Computation</field>
+    <field
+            name="parent_id"
+            ref="ssi_account_receivable_penalty.receivable_penalty_data_ownership_module_category"
+        />
+    <field name="sequence">4</field>
+</record>
+</odoo>

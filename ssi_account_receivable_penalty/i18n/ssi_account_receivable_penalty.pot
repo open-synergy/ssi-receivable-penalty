@@ -21,6 +21,11 @@ msgid "# Base Accounting Entry"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__batch_id
+msgid "# Batch"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail__wizard_id
 msgid "# Contract"
 msgstr ""
@@ -28,6 +33,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__name
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__name
 msgid "# Document"
 msgstr ""
 
@@ -45,6 +51,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__penalty_id
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_search
 msgid "# Penalty"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__computation_id
+msgid "# Penalty Computation"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -95,7 +106,9 @@ msgid "Accounts"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:base.automation,name:ssi_account_receivable_penalty.batch_penalty_computation_open_2_done
 #: model:base.automation,name:ssi_account_receivable_penalty.penalty_ready_2_done
+#: model:ir.actions.server,name:ssi_account_receivable_penalty.batch_penalty_computation_action_done
 #: model:ir.actions.server,name:ssi_account_receivable_penalty.penalty_action_done
 msgid "Action Done"
 msgstr ""
@@ -104,11 +117,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_needaction
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_needaction
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_needaction
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_needaction
 msgid "Action Needed"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:base.automation,name:ssi_account_receivable_penalty.batch_penalty_computation_done_2_open
 #: model:base.automation,name:ssi_account_receivable_penalty.penalty_ready_2_open
+#: model:ir.actions.server,name:ssi_account_receivable_penalty.batch_penalty_computation_action_open
 #: model:ir.actions.server,name:ssi_account_receivable_penalty.penalty_action_open
 msgid "Action Open"
 msgstr ""
@@ -121,18 +137,21 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__active_approval_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__active_approval_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__active_approval_ids
 msgid "Active Approvals"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__active_approver_partner_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__active_approver_partner_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__active_approver_partner_ids
 msgid "Active Partners"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__active_approver_user_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__active_approver_user_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__active_approver_user_ids
 msgid "Active Users"
 msgstr ""
 
@@ -140,6 +159,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_ids
 msgid "Activities"
 msgstr ""
 
@@ -147,6 +167,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_exception_decoration
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_exception_decoration
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_exception_decoration
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_exception_decoration
 msgid "Activity Exception Decoration"
 msgstr ""
 
@@ -154,6 +175,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_state
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_state
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_state
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_state
 msgid "Activity State"
 msgstr ""
 
@@ -161,13 +183,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_type_icon
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_type_icon
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_type_icon
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_type_icon
 msgid "Activity Type Icon"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:res.groups,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_all_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_all_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_all_group
 msgid "All"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__all_computation_done_ok
+msgid "All Computation Done"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -178,6 +207,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__allowed_base_move_line_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__allowed_base_move_line_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__allowed_base_move_line_ids
 msgid "Allowed Base Move Line"
 msgstr ""
 
@@ -189,6 +219,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__allowed_policy_template_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__allowed_policy_template_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__allowed_policy_template_ids
 msgid "Allowed Policy Templates"
 msgstr ""
 
@@ -200,6 +231,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__amount_residual
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__amount_residual
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__amount_residual
 msgid "Amount Residual"
 msgstr ""
 
@@ -210,6 +242,7 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__amount_total
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__amount_total
 msgid "Amount Total"
 msgstr ""
 
@@ -221,24 +254,28 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__approval_template_id
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__approval_template_id
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__approval_template_id
 msgid "Approval Configuration"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__approval_template_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__approval_template_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__approval_template_id
 msgid "Approval Template"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__approval_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__approval_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__approval_ids
 msgid "Approvals"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__approve_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__approve_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__approve_ok
 msgid ""
 "Approve policy\n"
 "\n"
@@ -248,6 +285,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__approved
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__approved
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__approved
 msgid "Approved"
 msgstr ""
 
@@ -260,7 +298,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_attachment_count
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_attachment_count
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_attachment_count
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_attachment_count
 msgid "Attachment Count"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__base_move_id
+msgid "Base Accounting Entry"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -278,62 +322,95 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__base_move_line_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__base_move_line_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__base_move_line_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail__base_move_line_id
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_search
 msgid "Base Move Line"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.actions.act_window,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_action
+#: model:ir.ui.menu,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_menu
+msgid "Batch Penalty Computations"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model,name:ssi_account_receivable_penalty.model_batch_receivable_penalty_computation
+#: model:ir.module.category,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_data_ownership_module_category
+#: model:ir.module.category,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_workflow_module_category
+msgid "Batch Receivable Penalty Computation"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model,name:ssi_account_receivable_penalty.model_batch_receivable_penalty_computation_detail
+msgid "Batch Receivable Penalty Computation - Detail"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__approve_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__approve_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__approve_ok
 msgid "Can Approve"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__cancel_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__cancel_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__cancel_ok
 msgid "Can Cancel"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__confirm_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__confirm_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__confirm_ok
 msgid "Can Confirm"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__done_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__done_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__done_ok
 msgid "Can Finished"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__manual_number_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__manual_number_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__manual_number_ok
 msgid "Can Input Manual Document Number"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__reject_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__reject_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__reject_ok
 msgid "Can Reject"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__restart_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__restart_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__restart_ok
 msgid "Can Restart"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__restart_approval_ok
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__restart_approval_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__restart_approval_ok
 msgid "Can Restart Approval"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__open_ok
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__open_ok
 msgid "Can Start"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__terminate_ok
+msgid "Can Terminate"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -344,12 +421,14 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__cancel_reason_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__cancel_reason_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__cancel_reason_id
 msgid "Cancel Reason"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__cancel_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__cancel_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__cancel_ok
 msgid ""
 "Cancel policy\n"
 "\n"
@@ -369,6 +448,8 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__company_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__company_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__company_id
+#: model:res.groups,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_company_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_company_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_company_group
 msgid "Company"
@@ -377,16 +458,20 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__company_currency_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__company_currency_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__company_currency_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__company_currency_id
 msgid "Company Currency"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__company_partner_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__company_partner_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__company_partner_id
 msgid "Company Partner"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:res.groups,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_company_child_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_company_child_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_company_child_group
 msgid "Company and All Child Companies"
@@ -395,6 +480,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__company_id
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__company_id
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__company_id
 msgid ""
 "Company that own the document\n"
 "\n"
@@ -404,8 +490,14 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__computation_ids
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_form
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_form
 msgid "Computations"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_form
+msgid "Compute"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -422,6 +514,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__confirm_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__confirm_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__confirm_ok
 msgid ""
 "Confirm policy\n"
 "\n"
@@ -431,6 +524,11 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_type_view_form
 msgid "Create"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__create_computation_ok
+msgid "Create Computation"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -449,6 +547,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__create_uid
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__create_uid
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__create_uid
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__create_uid
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__create_uid
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__create_uid
 msgid "Created by"
 msgstr ""
@@ -458,6 +558,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__create_date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__create_date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__create_date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__create_date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__create_date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__create_date
 msgid "Created on"
 msgstr ""
@@ -471,6 +573,9 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__date
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_search
 msgid "Date"
 msgstr ""
@@ -482,6 +587,7 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__days_overdue
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__days_overdue
 msgid "Days Overdue"
 msgstr ""
 
@@ -496,6 +602,7 @@ msgid "Delete"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__detail_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__detail_ids
 msgid "Details"
 msgstr ""
@@ -506,6 +613,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__display_name
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__display_name
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail__display_name
 msgid "Display Name"
@@ -514,6 +623,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__done_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__done_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__done_ok
 msgid ""
 "Done policy\n"
 "\n"
@@ -532,6 +642,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_follower_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_follower_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_follower_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_follower_ids
 msgid "Followers"
 msgstr ""
 
@@ -539,6 +650,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_channel_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_channel_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_channel_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_channel_ids
 msgid "Followers (Channels)"
 msgstr ""
 
@@ -546,6 +658,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_partner_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_partner_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_partner_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_partner_ids
 msgid "Followers (Partners)"
 msgstr ""
 
@@ -553,6 +666,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_type_icon
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_type_icon
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_type_icon
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
@@ -562,6 +676,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail__id
 msgid "ID"
@@ -571,6 +687,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_exception_icon
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_exception_icon
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_exception_icon
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_exception_icon
 msgid "Icon"
 msgstr ""
 
@@ -578,6 +695,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_exception_icon
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_exception_icon
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_exception_icon
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_exception_icon
 msgid "Icon to indicate an exception activity."
 msgstr ""
 
@@ -588,6 +706,8 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_unread
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_needaction
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_unread
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_needaction
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_unread
 msgid "If checked, new messages require your attention."
 msgstr ""
 
@@ -595,6 +715,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__message_has_error
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_has_error
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_has_error
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_has_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
 
@@ -609,6 +730,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_is_follower
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_is_follower
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_is_follower
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_is_follower
 msgid "Is Follower"
 msgstr ""
 
@@ -641,6 +763,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type____last_update
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation____last_update
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail____last_update
 msgid "Last Modified on"
@@ -656,6 +780,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__write_uid
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__write_uid
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__write_uid
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__write_uid
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__write_uid
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -665,6 +791,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__write_date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__write_date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__write_date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__write_date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__write_date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation__write_date
 msgid "Last Updated on"
 msgstr ""
@@ -673,12 +801,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_main_attachment_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_main_attachment_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_main_attachment_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_main_attachment_id
 msgid "Main Attachment"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__manual_number_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__manual_number_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__manual_number_ok
 msgid ""
 "Manual number assignment policy\n"
 "\n"
@@ -708,9 +838,15 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__max_days_overdue
+msgid "Max. Days Overdue"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_has_error
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_has_error
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_has_error
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_has_error
 msgid "Message Delivery error"
 msgstr ""
 
@@ -718,7 +854,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_ids
 msgid "Messages"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__min_days_overdue
+msgid "Min. Days Overdue"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -730,12 +872,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__my_activity_date_deadline
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__my_activity_date_deadline
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__my_activity_date_deadline
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__need_validation
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__need_validation
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__need_validation
 msgid "Need Validation"
 msgstr ""
 
@@ -743,6 +887,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_date_deadline
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_date_deadline
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_date_deadline
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_date_deadline
 msgid "Next Activity Deadline"
 msgstr ""
 
@@ -750,6 +895,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_summary
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_summary
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_summary
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_summary
 msgid "Next Activity Summary"
 msgstr ""
 
@@ -757,12 +903,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_type_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_type_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_type_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_type_id
 msgid "Next Activity Type"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__next_approval_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__next_approval_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__next_approval_ids
 msgid "Next Approvals"
 msgstr ""
 
@@ -770,13 +918,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__note
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__note
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__note
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__note
 msgid "Note"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__num_done_computation
+msgid "Num. of Finished Penalty Computation"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__num_computation
+msgid "Num. of Generated Penalty Computation"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_needaction_counter
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_needaction_counter
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_needaction_counter
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_needaction_counter
 msgid "Number of Actions"
 msgstr ""
 
@@ -784,6 +944,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_has_error_counter
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_has_error_counter
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_has_error_counter
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_has_error_counter
 msgid "Number of errors"
 msgstr ""
 
@@ -791,6 +952,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__message_needaction_counter
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_needaction_counter
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_needaction_counter
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_needaction_counter
 msgid "Number of messages which requires an action"
 msgstr ""
 
@@ -798,6 +960,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__message_has_error_counter
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_has_error_counter
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_has_error_counter
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_has_error_counter
 msgid "Number of messages with delivery error"
 msgstr ""
 
@@ -805,6 +968,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__message_unread_counter
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_unread_counter
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_unread_counter
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_unread_counter
 msgid "Number of unread messages"
 msgstr ""
 
@@ -881,6 +1045,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__policy_template_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__policy_template_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__policy_template_id
 msgid "Policy Template"
 msgstr ""
 
@@ -926,6 +1091,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__reject_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__reject_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__reject_ok
 msgid ""
 "Reject policy\n"
 "\n"
@@ -935,6 +1101,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__rejected
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__rejected
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__rejected
 msgid "Rejected"
 msgstr ""
 
@@ -953,6 +1120,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__user_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__user_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__user_id
 msgid "Responsible"
 msgstr ""
 
@@ -960,12 +1128,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_user_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_user_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_user_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_user_id
 msgid "Responsible User"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__restart_approval_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__restart_approval_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__restart_approval_ok
 msgid ""
 "Restart approval policy\n"
 "\n"
@@ -975,6 +1145,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__restart_ok
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__restart_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__restart_ok
 msgid ""
 "Restart policy\n"
 "\n"
@@ -983,6 +1154,7 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__open_ok
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__open_ok
 msgid ""
 "Start policy\n"
 "\n"
@@ -992,6 +1164,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__state
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__state
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__state
 msgid "State"
 msgstr ""
 
@@ -999,6 +1172,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_state
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_state
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_state
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_state
 msgid ""
 "Status based on activities\n"
 "Overdue: Due date is already passed\n"
@@ -1024,8 +1198,22 @@ msgid "Taxes"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__terminate_reason_id
+msgid "Terminate Reason"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__terminate_ok
+msgid ""
+"Terminate policy\n"
+"\n"
+"* If active user can see and execute 'Terminate' button"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__base_move_id
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__base_move_id
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__base_move_id
 msgid "The move of this entry line."
 msgstr ""
 
@@ -1047,6 +1235,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__name
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__name
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__name
 msgid ""
 "Transaction/document number\n"
 "\n"
@@ -1061,6 +1250,8 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__type_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__type_id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__type_id
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_search
 msgid "Type"
@@ -1070,6 +1261,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_exception_decoration
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_exception_decoration
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_exception_decoration
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_exception_decoration
 msgid "Type of the exception activity on record."
 msgstr ""
 
@@ -1082,6 +1274,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_unread
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_unread
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_unread
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_unread
 msgid "Unread Messages"
 msgstr ""
 
@@ -1089,6 +1282,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_unread_counter
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_unread_counter
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_unread_counter
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__message_unread_counter
 msgid "Unread Messages Counter"
 msgstr ""
 
@@ -1098,6 +1292,17 @@ msgid "Untaxed"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__use_max_days_overdue
+msgid "Use Max. Days Overdue"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__use_min_days_overdue
+msgid "Use Min. Days Overdue"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:res.groups,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_user_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_user_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_user_group
 msgid "User"
@@ -1106,6 +1311,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__user_id
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__user_id
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__user_id
 msgid ""
 "User that responsible for document\n"
 "\n"
@@ -1117,16 +1323,19 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__active_approver_user_ids
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__active_approver_user_ids
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__active_approver_user_ids
 msgid "Users that can approve/reject document"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:res.groups,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_validator_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_validator_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_validator_group
 msgid "Validator"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:res.groups,name:ssi_account_receivable_penalty.batch_receivable_penalty_computation_viewer_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_comp_viewer_group
 #: model:res.groups,name:ssi_account_receivable_penalty.receivable_penalty_viewer_group
 msgid "Viewer"
@@ -1136,6 +1345,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__website_message_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__website_message_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__website_message_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__website_message_ids
 msgid "Website Messages"
 msgstr ""
 
@@ -1143,6 +1353,7 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__website_message_ids
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__website_message_ids
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__website_message_ids
+#: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__website_message_ids
 msgid "Website communication history"
 msgstr ""
 

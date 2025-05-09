@@ -16,6 +16,7 @@
         "ssi_transaction_confirm_mixin",
         "ssi_transaction_done_mixin",
         "ssi_transaction_cancel_mixin",
+        "ssi_transaction_terminate_mixin",
         "ssi_company_currency_mixin",
         "base_automation",
     ],

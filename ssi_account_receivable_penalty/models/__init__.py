@@ -4,6 +4,8 @@
 from . import (
     account_receivable_penalty_type,
     account_receivable_penalty_computation,
+    batch_receivable_penalty_computation,
+    batch_receivable_penalty_computation_detail,
     account_receivable_penalty_tax,
     account_receivable_penalty,
     account_move,

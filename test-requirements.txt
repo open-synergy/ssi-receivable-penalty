@@ -3,4 +3,5 @@ odoo14-addon-ssi-company-currency-mixin
 odoo14-addon-ssi-transaction-cancel-mixin
 odoo14-addon-ssi-transaction-done-mixin
 odoo14-addon-ssi-transaction-open-mixin
+odoo14-addon-ssi-transaction-terminate-mixin
 odoo14-addon-ssi-sale

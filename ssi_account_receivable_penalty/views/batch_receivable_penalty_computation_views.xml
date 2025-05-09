@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2022 OpenSynergy Indonesia
+     Copyright 2022 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="batch_receivable_penalty_computation_view_search" model="ir.ui.view">
+        <field name="name">batch_receivable_penalty_computation - search</field>
+        <field name="model">batch_receivable_penalty_computation</field>
+    <field
+            name="inherit_id"
+            ref="ssi_transaction_mixin.mixin_transaction_view_search"
+        />
+    <field name="mode">primary</field>
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position='after'>
+                <field name="type_id" />
+            </xpath>
+            <xpath expr="//filter[@name='grp_responsible']" position='after'>
+                <filter
+                        name="grp_type_id"
+                        string="Type"
+                        context="{'group_by':'type_id'}"
+                    />
+                <filter name="grp_date" string="Date" context="{'group_by':'date'}" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="batch_receivable_penalty_computation_view_tree" model="ir.ui.view">
+    <field name="name">batch_receivable_penalty_computation- tree</field>
+    <field name="model">batch_receivable_penalty_computation</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_tree" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='company_id']" position="after">
+                <field name="type_id" />
+                <field name="date" />
+                <field name="num_computation" />
+                <field name="num_done_computation" />
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="batch_receivable_penalty_computation_view_tree_2" model="ir.ui.view">
+    <field name="name">batch_receivable_penalty_computation- tree 2</field>
+    <field name="model">batch_receivable_penalty_computation</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="name" />
+            <field name="date" />
+            <field name="state" invisible="1" />
+        </tree>
+    </field>
+</record>
+
+<record id="batch_receivable_penalty_computation_view_form" model="ir.ui.view">
+    <field name="name">batch_receivable_penalty_computation- form</field>
+    <field name="model">batch_receivable_penalty_computation</field>
+    <field name="mode">primary</field>
+    <field name="inherit_id" ref="ssi_transaction_mixin.mixin_transaction_view_form" />
+    <field name="arch" type="xml">
+        <data>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="type_id" />
+                <field
+                        name="allowed_base_move_line_ids"
+                        widget="many2many_widget"
+                        invisible="1"
+                    />
+                <field name="date" />
+            </xpath>
+            <xpath expr="//group[@name='header_right']" position="inside">
+                <field name="use_min_days_overdue" />
+                <field name="min_days_overdue" />
+                <field name="use_max_days_overdue" />
+                <field name="max_days_overdue" />
+            </xpath>
+            <xpath expr="//page[1]" position="before">
+                <page name="computation" string="Computations">
+                    <field name="allowed_base_move_line_ids" invisible="1" />
+                    <group name="computation_1" colspan="4" col="2">
+                        <field name="num_computation" />
+                        <field name="num_done_computation" />
+                        <field name="all_computation_done_ok" />
+                    </group>
+                    <button
+                            name="action_compute_computation"
+                            type="object"
+                            string="Compute"
+                            icon="fa-gears"
+                            attrs="{'invisible':[('state','!=','draft')]}"
+                            class="oe_highlight"
+                        />
+                    <field name="detail_ids">
+                        <tree>
+                            <field name="date" invisible="1" />
+                            <field name="company_currency_id" invisible="1" />
+                            <field name="base_move_line_id" invisible="1" />
+                            <field name="base_move_id" />
+                            <field name="days_overdue" />
+                            <field name="amount_total" />
+                            <field name="amount_residual" />
+                            <field name="create_computation_ok" />
+                            <field name="computation_id" />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </data>
+    </field>
+</record>
+
+<record id="batch_receivable_penalty_computation_action" model="ir.actions.act_window">
+    <field name="name">Batch Penalty Computations</field>
+    <field name="type">ir.actions.act_window</field>
+    <field name="res_model">batch_receivable_penalty_computation</field>
+    <field name="view_mode">tree,form</field>
+</record>
+
+<menuitem
+        id="batch_receivable_penalty_computation_menu"
+        name="Batch Penalty Computations"
+        parent="ssi_financial_accounting.menu_account_receivable"
+        action="batch_receivable_penalty_computation_action"
+        groups="receivable_penalty_comp_viewer_group"
+        sequence="201"
+    />
+
+</odoo>

@@ -47,6 +47,7 @@
         "views/account_receivable_penalty_computation_views.xml",
         "views/account_receivable_penalty_views.xml",
         "views/batch_receivable_penalty_computation_views.xml",
+        "views/account_move_line_views.xml",
     ],
     "demo": [
         "demo/account_journal_demo.xml",

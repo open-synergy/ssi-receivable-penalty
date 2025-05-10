@@ -104,7 +104,23 @@
                             <field name="days_overdue" />
                             <field name="amount_total" />
                             <field name="amount_residual" />
+                            <field name="state" invisible="1" />
                             <field name="create_computation_ok" />
+                            <field name="override_penalty_computation_creation" />
+                            <button
+                                    name="action_override_penalty_computation_creation"
+                                    help="Override Penalty Computation Creation"
+                                    type="object"
+                                    icon="fa-window-close"
+                                    attrs="{'invisible': ['|','|',('state','!=','draft'),'&amp;',('state','=','draft'),('create_computation_ok','=',False),'&amp;','&amp;',('state','=','draft'),('create_computation_ok','=',True),('override_penalty_computation_creation','=',True)]}"
+                                />
+                            <button
+                                    name="action_disable_override_penalty_computation_creation"
+                                    help="Disable Override Penalty Computation Creation"
+                                    type="object"
+                                    icon="fa-eraser"
+                                    attrs="{'invisible':['|','|',('state','!=','draft'),'&amp;',('state','=','draft'),('create_computation_ok','=',False),'&amp;','&amp;',('state','=','draft'),('create_computation_ok','=',True),('override_penalty_computation_creation','=',False)]}"
+                                />
                             <field name="computation_id" />
                         </tree>
                     </field>

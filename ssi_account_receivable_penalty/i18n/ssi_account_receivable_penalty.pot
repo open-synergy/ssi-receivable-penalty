@@ -608,7 +608,13 @@ msgid "Details"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_form
+msgid "Disable Override Penalty Computation Creation"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__display_name
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move_line__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__display_name
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__display_name
@@ -636,6 +642,11 @@ msgstr ""
 msgid ""
 "Error evaluating conditions.\n"
 " %s"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move_line__exclude_from_penalty
+msgid "Exclude From Penalty Computation"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
@@ -672,6 +683,7 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__id
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move_line__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__id
@@ -747,6 +759,7 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model,name:ssi_account_receivable_penalty.model_account_move_line
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax__account_move_line_id
 msgid "Journal Item"
 msgstr ""
@@ -759,6 +772,7 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move____last_update
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move_line____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation____last_update
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_tax____last_update
@@ -973,6 +987,16 @@ msgid "Number of unread messages"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__override_penalty_computation_creation
+msgid "Overide Penalty Computation Creation"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_form
+msgid "Override Penalty Computation Creation"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_tree
 msgid "Paid"
@@ -1108,6 +1132,7 @@ msgstr ""
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_bank_statement_line__receivable_penalty_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__receivable_penalty_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move_line__receivable_penalty_ids
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_payment__receivable_penalty_ids
 msgid "Related Receivable Penalties"
 msgstr ""
@@ -1165,6 +1190,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__state
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__state
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__state
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__state
 msgid "State"
 msgstr ""
 

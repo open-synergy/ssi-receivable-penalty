@@ -21,7 +21,9 @@ msgid "# Base Accounting Entry"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__batch_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__batch_id
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_search
 msgid "# Batch"
 msgstr ""
 

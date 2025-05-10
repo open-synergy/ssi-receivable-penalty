@@ -66,6 +66,13 @@ class BatchReceivablePenaltyComputation(models.Model):
         store=True,
         compute_sudo=True,
     )
+    override_penalty_computation_creation = fields.Boolean(
+        string="Overide Penalty Computation Creation",
+    )
+    state = fields.Selection(
+        related="batch_id.state",
+        store=False,
+    )
 
     @api.depends(
         "base_move_line_id",
@@ -127,6 +134,30 @@ class BatchReceivablePenaltyComputation(models.Model):
                     result = False
                     continue
             record.create_computation_ok = result
+
+    def action_override_penalty_computation_creation(self):
+        for record in self.sudo():
+            record._override_penalty_computation_creation()
+
+    def action_disable_override_penalty_computation_creation(self):
+        for record in self.sudo():
+            record._disable_override_penalty_computation_creation()
+
+    def _override_penalty_computation_creation(self):
+        self.ensure_one()
+        self.write(
+            {
+                "override_penalty_computation_creation": True,
+            }
+        )
+
+    def _disable_override_penalty_computation_creation(self):
+        self.ensure_one()
+        self.write(
+            {
+                "override_penalty_computation_creation": False,
+            }
+        )
 
     def _create_computation(self):
         self.ensure_one()

@@ -205,6 +205,7 @@ class BatchPenaltyComputation(models.Model):
                     ("reconciled", "=", False),
                     ("move_id.state", "=", "posted"),
                     ("partner_id", "!=", False),
+                    ("exclude_from_penalty", "=", False),
                 ]
                 result = AML.search(criteria).ids
             record.allowed_base_move_line_ids = result
@@ -245,7 +246,10 @@ class BatchPenaltyComputation(models.Model):
     @ssi_decorator.post_open_action()
     def _10_create_penalty_computation(self):
         self.ensure_one()
-        for detail in self.detail_ids.filtered(lambda r: r.create_computation_ok):
+        for detail in self.detail_ids.filtered(
+            lambda r: r.create_computation_ok
+            and not r.override_penalty_computation_creation
+        ):
             detail._create_computation()
 
     @ssi_decorator.insert_on_form_view()

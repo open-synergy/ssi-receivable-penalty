@@ -59,6 +59,7 @@ class BatchReceivablePenaltyComputation(models.Model):
         string="# Penalty Computation",
         comodel_name="account.receivable_penalty_computation",
         readonly=True,
+        ondelete="restrict",
     )
     create_computation_ok = fields.Boolean(
         string="Create Computation",
@@ -68,6 +69,7 @@ class BatchReceivablePenaltyComputation(models.Model):
     )
     override_penalty_computation_creation = fields.Boolean(
         string="Overide Penalty Computation Creation",
+        readonly=True,
     )
     state = fields.Selection(
         related="batch_id.state",
@@ -142,6 +144,22 @@ class BatchReceivablePenaltyComputation(models.Model):
     def action_disable_override_penalty_computation_creation(self):
         for record in self.sudo():
             record._disable_override_penalty_computation_creation()
+
+    def action_remove_penalty_computation(self):
+        for record in self.sudo():
+            record._remove_penalty_computation()
+
+    def _remove_penalty_computation(self):
+        self.ensure_one()
+        computation = self.computation_id
+
+        if computation:
+            self.write(
+                {
+                    "computation_id": False,
+                }
+            )
+            computation.unlink()
 
     def _override_penalty_computation_creation(self):
         self.ensure_one()

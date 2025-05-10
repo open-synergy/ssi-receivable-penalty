@@ -17,6 +17,7 @@
                 <field name="partner_id" />
                 <field name="type_id" />
                 <field name="penalty_id" />
+                <field name="batch_id" />
                 <field name="base_move_line_id" />
             </xpath>
             <xpath expr="//filter[@name='grp_responsible']" position='after'>
@@ -29,6 +30,11 @@
                         name="grp_penalty"
                         string="# Penalty"
                         context="{'group_by':'penalty_id'}"
+                    />
+                <filter
+                        name="grp_batch"
+                        string="# Batch"
+                        context="{'group_by':'batch_id'}"
                     />
                 <filter
                         name="grp_base_move_id"
@@ -58,6 +64,7 @@
                 <field name="partner_id" />
                 <field name="type_id" />
                 <field name="base_move_id" />
+                <field name="batch_id" />
                 <field name="penalty_id" />
                 <field name="date" />
                 <field name="days_overdue" />
@@ -95,6 +102,7 @@
         <data>
             <xpath expr="//field[@name='user_id']" position="after">
                 <field name="company_currency_id" invisible="1" />
+                <field name="batch_id" />
                 <field name="type_id" />
                 <field name="partner_id" />
                 <field

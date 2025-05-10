@@ -252,6 +252,13 @@ class BatchPenaltyComputation(models.Model):
         ):
             detail._create_computation()
 
+    @ssi_decorator.post_cancel_action()
+    def _10_remove_computation(self):
+        self.ensure_one()
+        for detail in self.detail_ids.filtered(lambda r: r.computation_id):
+            detail.action_remove_penalty_computation()
+        self.detail_ids.unlink()
+
     @ssi_decorator.insert_on_form_view()
     def _insert_form_element(self, view_arch):
         if self._automatically_insert_view_element:

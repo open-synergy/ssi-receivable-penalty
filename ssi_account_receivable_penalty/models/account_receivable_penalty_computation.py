@@ -67,6 +67,11 @@ class AccountReceivablePenaltyComputation(models.Model):
         ondelete="set null",
         readonly=True,
     )
+    batch_id = fields.Many2one(
+        string="# Batch",
+        comodel_name="batch_receivable_penalty_computation",
+        readonly=True,
+    )
     partner_id = fields.Many2one(
         string="Partner",
         comodel_name="res.partner",

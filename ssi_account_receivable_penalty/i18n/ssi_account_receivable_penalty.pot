@@ -577,6 +577,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__date
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__date
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail__date
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.batch_receivable_penalty_computation_view_search
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_search
 msgid "Date"

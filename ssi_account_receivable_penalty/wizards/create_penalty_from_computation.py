@@ -2,7 +2,6 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from datetime import date
 
 from odoo import api, fields, models, tools
 
@@ -61,6 +60,9 @@ class CreatePenaltyFromComputationSummary(models.Model):
         string="Partner",
         comodel_name="res.partner",
     )
+    date = fields.Date(
+        string="Date",
+    )
 
     def _select(self):
         select_str = """
@@ -69,7 +71,8 @@ class CreatePenaltyFromComputationSummary(models.Model):
             a.wizard_id AS wizard_id,
             b.base_move_line_id AS base_move_line_id,
             b.type_id as type_id,
-            b.partner_id AS partner_id
+            b.partner_id AS partner_id,
+            MAX(b.date) AS date
         """
         return select_str
 
@@ -149,8 +152,8 @@ class CreatePenaltyFromComputationSummary(models.Model):
             "partner_id": self.partner_id.id,
             "type_id": self.type_id.id,
             "base_move_line_id": self.base_move_line_id.id,
-            "date": date.today(),
-            "date_due": date.today(),
+            "date": self.date,
+            "date_due": self.date,
             "journal_id": self.type_id.journal_id.id,
             "receivable_account_id": self.type_id.receivable_account_id.id,
             "income_account_id": self.type_id.income_account_id.id,

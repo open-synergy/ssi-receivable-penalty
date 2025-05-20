@@ -2,7 +2,9 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import Warning as UserError
+from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.ssi_decorator import ssi_decorator
 
@@ -15,6 +17,7 @@ class AccountReceivablePenaltyComputation(models.Model):
         "mixin.transaction_confirm",
         "mixin.company_currency",
         "mixin.state_change_history",
+        "mixin.localdict",
     ]
     _description = "Account Receivable Penalty Computation"
 
@@ -247,13 +250,18 @@ class AccountReceivablePenaltyComputation(models.Model):
     )
     def onchange_base_amount(self):
         self.base_amount = 0.0
+        if self.type_id and self.base_move_line_id:
+            self.base_amount = self._calculate_base_amount()
 
     @api.onchange(
+        "base_amount",
         "type_id",
         "base_move_line_id",
     )
     def onchange_penalty_amount(self):
         self.penalty_amount = 0.0
+        if self.type_id and self.base_move_line_id:
+            self.penalty_amount = self._calculate_penalty_amount()
 
     def _create_aml(self):
         self.ensure_one()
@@ -266,6 +274,32 @@ class AccountReceivablePenaltyComputation(models.Model):
                 "account_move_line_id": aml.id,
             }
         )
+
+    def _calculate_base_amount(self):
+        self.ensure_one()
+        res = False
+        localdict = self._get_default_localdict()
+        try:
+            ttype = self.type_id
+            safe_eval(ttype.base_amount_python, localdict, mode="exec", nocopy=True)
+            res = localdict["result"]
+        except Exception as error:
+            raise UserError(_("Error evaluating base amount conditions.\n %s") % error)
+        return res
+
+    def _calculate_penalty_amount(self):
+        self.ensure_one()
+        res = False
+        localdict = self._get_default_localdict()
+        try:
+            ttype = self.type_id
+            safe_eval(ttype.penalty_amount_python, localdict, mode="exec", nocopy=True)
+            res = localdict["result"]
+        except Exception as error:
+            raise UserError(
+                _("Error evaluating penalty amount conditions.\n %s") % error
+            )
+        return res
 
     def _prepare_aml_data(self):
         self.ensure_one()

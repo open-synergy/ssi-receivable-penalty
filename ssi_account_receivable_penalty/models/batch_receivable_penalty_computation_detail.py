@@ -186,15 +186,13 @@ class BatchReceivablePenaltyComputation(models.Model):
             "base_move_line_id": self.base_move_line_id.id,
             "type_id": batch.type_id.id,
             "partner_id": self.base_move_line_id.partner_id.id,
-            "base_amount": batch.type_id._evaluate_python(
-                self.base_move_line_id, batch.type_id.base_amount_python
-            ),
-            "penalty_amount": batch.type_id._evaluate_python(
-                self.base_move_line_id, batch.type_id.penalty_amount_python
-            ),
-            "batch_id": self.id,
+            "base_amount": 0.0,
+            "penalty_amount": 0.0,
+            "batch_id": batch.id,
         }
         computation = Computation.create(data)
+        computation.onchange_base_amount()
+        computation.onchange_penalty_amount()
         self.write(
             {
                 "computation_id": computation.id,

@@ -128,11 +128,8 @@ result = True""",
             "partner_id": move_line.partner_id.id,
             "type_id": self.id,
             "date": penalty_date,
-            "base_amount": self._evaluate_python(move_line, self.base_amount_python),
-            "penalty_amount": self._evaluate_python(
-                move_line, self.penalty_amount_python
-            ),
-            "state": "draft",
+            "base_amount": 0.0,
+            "penalty_amount": 0.0,
         }
 
     def action_create_cron(self):
@@ -165,6 +162,8 @@ result = True""",
         PenaltyComputation = self.env["account.receivable_penalty_computation"]
         _check = self._evaluate_python(move_line, self.condition_python)
         if _check:
-            PenaltyComputation.create(
+            penalty = PenaltyComputation.create(
                 self._prepare_computation_data(move_line, penalty_date)
             )
+            penalty.onchange_base_amount()
+            penalty.onchange_penalty_amount()

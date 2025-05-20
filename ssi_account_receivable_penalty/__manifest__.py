@@ -20,6 +20,7 @@
         "ssi_company_currency_mixin",
         "base_automation",
         "ssi_state_change_history_mixin",
+        "ssi_localdict_mixin",
     ],
     "data": [
         "security/ir_module_category_data.xml",

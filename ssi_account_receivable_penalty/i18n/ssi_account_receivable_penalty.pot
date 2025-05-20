@@ -1198,6 +1198,12 @@ msgid "State"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__state_change_history_ids
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__state_change_history_ids
+msgid "States Change History"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__activity_state
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__activity_state
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_state

@@ -15,6 +15,7 @@ class AccountReceivablePenalty(models.Model):
         "mixin.transaction_open",
         "mixin.transaction_confirm",
         "mixin.company_currency",
+        "mixin.state_change_history",
     ]
     _description = "Account Receivable Penalty"
 
@@ -23,6 +24,8 @@ class AccountReceivablePenalty(models.Model):
     _approval_to_state = "open"
     _approval_state = "confirm"
     _after_approved_method = "action_open"
+
+    _automatically_insert_state_change_history_page = True
 
     # Attributes related to add element on view automatically
     _automatically_insert_view_element = True

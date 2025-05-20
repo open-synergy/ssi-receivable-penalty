@@ -14,6 +14,7 @@ class AccountReceivablePenaltyComputation(models.Model):
         "mixin.transaction_done",
         "mixin.transaction_confirm",
         "mixin.company_currency",
+        "mixin.state_change_history",
     ]
     _description = "Account Receivable Penalty Computation"
 
@@ -27,6 +28,8 @@ class AccountReceivablePenaltyComputation(models.Model):
     _automatically_insert_view_element = True
     _automatically_insert_done_policy_fields = False
     _automatically_insert_done_button = False
+
+    _automatically_insert_state_change_history_page = True
 
     _statusbar_visible_label = "draft,confirm,done"
     _policy_field_order = [

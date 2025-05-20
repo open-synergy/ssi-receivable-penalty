@@ -19,6 +19,7 @@
         "ssi_transaction_terminate_mixin",
         "ssi_company_currency_mixin",
         "base_automation",
+        "ssi_state_change_history_mixin",
     ],
     "data": [
         "security/ir_module_category_data.xml",

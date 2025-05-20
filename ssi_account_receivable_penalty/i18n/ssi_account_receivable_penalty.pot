@@ -640,10 +640,26 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: code:addons/ssi_account_receivable_penalty/models/account_receivable_penalty_computation.py:0
+#, python-format
+msgid ""
+"Error evaluating base amount conditions.\n"
+" %s"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: code:addons/ssi_account_receivable_penalty/models/account_receivable_penalty_type.py:0
 #, python-format
 msgid ""
 "Error evaluating conditions.\n"
+" %s"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: code:addons/ssi_account_receivable_penalty/models/account_receivable_penalty_computation.py:0
+#, python-format
+msgid ""
+"Error evaluating penalty amount conditions.\n"
 " %s"
 msgstr ""
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+<record id="create_penalty_computation_from_move_view_form" model="ir.ui.view">
+    <field name="name">Create Penalty Computation From Journal Entry</field>
+    <field name="model">create_penalty_computation_from_move</field>
+    <field name="arch" type="xml">
+        <form>
+            <group name="form_1" colspan="4" col="2">
+                <field name="type_id" />
+                <field name="date" />
+            </group>
+            <field name="account_move_ids" readonly="1" force_save="1" />
+            <footer>
+                <button
+                        string="Confirm"
+                        name="action_confirm"
+                        type="object"
+                        class="oe_highlight"
+                        confirm="Are you sure?"
+                    />
+                or
+                <button string="Cancel" class="oe_link" special="cancel" />
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="create_penalty_computation_from_move_action" model="ir.actions.act_window">
+    <field name="name">Create Penalty Computation From Journal Entry</field>
+    <field name="res_model">create_penalty_computation_from_move</field>
+    <field name="view_mode">form</field>
+    <field name="view_id" ref="create_penalty_computation_from_move_view_form" />
+    <field name="target">new</field>
+    <field name="binding_model_id" ref="account.model_account_move" />
+    <field name="binding_view_types">form</field>
+</record>
+
+</odoo>

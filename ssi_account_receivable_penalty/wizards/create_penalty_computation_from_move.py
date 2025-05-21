@@ -29,10 +29,13 @@ class CreatePenaltyComputationFromMove(models.TransientModel):
         required=False,
         default=lambda self: self._default_account_move_ids(),
     )
-    type_id = fields.Many2one(
-        string="Penalty Type",
+    type_ids = fields.Many2many(
+        string="Types",
         comodel_name="account.receivable_penalty_type",
-        required=True,
+        relation="rel_create_penalty_computation_from_move_2_type",
+        column1="wizard_id",
+        column2="type_id",
+        required=False,
     )
     date = fields.Date(
         string="Date",
@@ -45,9 +48,14 @@ class CreatePenaltyComputationFromMove(models.TransientModel):
 
     def _confirm(self):
         self.ensure_one()
-        for move in self.account_move_ids:
-            for ml in move.line_ids.filtered(
-                lambda r: r.account_id.user_type_id.type == "receivable"
-                and r.debit > 0.0
-            ):
-                self.type_id.create_penalty_computation(ml, self.date)
+        if self.type_ids:
+            types = self.type_ids
+        else:
+            types = self.env["account.receivable_penalty_type"].search([])
+        for ttype in types:
+            for move in self.account_move_ids:
+                for ml in move.line_ids.filtered(
+                    lambda r: r.account_id.user_type_id.type == "receivable"
+                    and r.debit > 0.0
+                ):
+                    ttype.create_penalty_computation(ml, self.date)

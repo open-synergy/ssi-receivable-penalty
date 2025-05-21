@@ -714,6 +714,11 @@ msgid "Font awesome icon e.g. fa-tasks"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_type_view_form
+msgid "General"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_move_line__id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__id
@@ -853,6 +858,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__limit_max_penalty_ok
+msgid "Limit Max Penalty Count"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__message_main_attachment_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__message_main_attachment_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__message_main_attachment_id
@@ -890,6 +900,11 @@ msgid ""
 "* Click 'Generate Code' button to automatically assign code.\n"
 "  Sequence template mush be set to perform this action\n"
 "  Only master data with '/' code will be assign automatic code"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__max_penalty
+msgid "Max Penalty"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty

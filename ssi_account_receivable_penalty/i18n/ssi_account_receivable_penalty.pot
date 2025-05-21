@@ -1103,7 +1103,6 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__name
-#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_computation_from_move__type_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_from_computation_detail__type_id
 msgid "Penalty Type"
 msgstr ""
@@ -1337,6 +1336,11 @@ msgstr ""
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_type__activity_exception_decoration
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__activity_exception_decoration
 msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_create_penalty_computation_from_move__type_ids
+msgid "Types"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty

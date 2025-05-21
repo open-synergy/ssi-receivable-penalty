@@ -204,6 +204,30 @@ class AccountReceivablePenaltyComputation(models.Model):
         res += policy_field
         return res
 
+    @api.constrains(
+        "base_move_line_id",
+        "type_id",
+        "state",
+    )
+    def _constrains_max_limit(self):
+        for record in self.sudo():
+            if not record._check_max_limit() and record.state in [
+                "confirm",
+                "open",
+                "done",
+            ]:
+                error_message = """
+                Document Type: %s
+                Context: Update document
+                Database ID: %s
+                Problem: Max penalty limit exceed
+                Solution: Change document base move line or type
+                """ % (
+                    self._description.title(),
+                    record.id,
+                )
+                raise UserError(_(error_message))
+
     @api.depends(
         "base_move_line_id",
         "date",
@@ -262,6 +286,25 @@ class AccountReceivablePenaltyComputation(models.Model):
         self.penalty_amount = 0.0
         if self.type_id and self.base_move_line_id:
             self.penalty_amount = self._calculate_penalty_amount()
+
+    def _check_max_limit(self):
+        self.ensure_one()
+        result = True
+        if not self.type_id.limit_max_penalty_ok:
+            return result
+
+        PenaltyComputation = self.env["account.receivable_penalty_computation"]
+        partner = self.partner_id.commercial_partner_id
+        criteria = [
+            ("partner_id.commercial_partner_id.id", "=", partner.id),
+            ("type_id.id", "=", self.type_id.id),
+            ("state", "in", ["confirm", "open", "done"]),
+            ("base_move_line_id.id", "=", self.base_move_line_id.id),
+        ]
+        if PenaltyComputation.search_count(criteria) > self.type_id.max_penalty:
+            result = False
+
+        return result
 
     def _create_aml(self):
         self.ensure_one()

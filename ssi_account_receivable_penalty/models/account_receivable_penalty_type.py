@@ -82,6 +82,19 @@ result = True""",
         column1="type_id",
         column2="tax_id",
     )
+    limit_max_penalty_ok = fields.Boolean(
+        string="Limit Max Penalty Count",
+        default=False,
+    )
+    max_penalty = fields.Integer(
+        string="Max Penalty",
+        required=True,
+        default=0,
+    )
+
+    def onchange_max_penalty(self):
+        if not self.limit_max_penalty_ok:
+            self.max_penalty = 0
 
     def _get_policy_localdict(self, move_line):
         self.ensure_one()
@@ -161,9 +174,30 @@ result = True""",
         self.ensure_one()
         PenaltyComputation = self.env["account.receivable_penalty_computation"]
         _check = self._evaluate_python(move_line, self.condition_python)
-        if _check:
+        _check_limit = self._check_max_limit(move_line)
+
+        if _check and _check_limit:
             penalty = PenaltyComputation.create(
                 self._prepare_computation_data(move_line, penalty_date)
             )
             penalty.onchange_base_amount()
             penalty.onchange_penalty_amount()
+
+    def _check_max_limit(self, move_line):
+        self.ensure_one()
+        result = True
+        if not self.limit_max_penalty_ok:
+            return result
+
+        PenaltyComputation = self.env["account.receivable_penalty_computation"]
+        partner = move_line.partner_id.commercial_partner_id
+        criteria = [
+            ("partner_id.commercial_partner_id.id", "=", partner.id),
+            ("type_id.id", "=", self.id),
+            ("state", "in", ["confirm", "open", "done"]),
+            ("base_move_line_id.id", "=", move_line.id),
+        ]
+        if PenaltyComputation.search_count(criteria) >= self.max_penalty:
+            result = False
+
+        return result

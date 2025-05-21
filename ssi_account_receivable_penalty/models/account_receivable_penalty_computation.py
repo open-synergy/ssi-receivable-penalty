@@ -2,6 +2,8 @@
 # Copyright 2022 PT. Simetri Sinergi Indonesia
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
+from dateutil.relativedelta import relativedelta
+
 from odoo import _, api, fields, models
 from odoo.exceptions import Warning as UserError
 from odoo.tools.safe_eval import safe_eval
@@ -158,6 +160,12 @@ class AccountReceivablePenaltyComputation(models.Model):
             ],
         },
     )
+    date_cutoff = fields.Date(
+        string="Date Cutoff",
+        compute="_compute_date_cutoff",
+        store=True,
+        compute_sudo=True,
+    )
     days_overdue = fields.Integer(
         string="Days Overdue",
         compute="_compute_days_overdue",
@@ -229,8 +237,22 @@ class AccountReceivablePenaltyComputation(models.Model):
                 raise UserError(_(error_message))
 
     @api.depends(
-        "base_move_line_id",
         "date",
+        "type_id",
+    )
+    def _compute_date_cutoff(self):
+        for record in self:
+            offset = 0
+            result = False
+            if record.date and record.type_id:
+                offset = record._calculate_date_cutoff()
+                result = record.date + relativedelta(days=-offset)
+            record.date_cutoff = result
+
+    @api.depends(
+        "base_move_line_id",
+        "date_cutoff",
+        "type_id",
     )
     def _compute_days_overdue(self):
         for record in self:
@@ -241,13 +263,14 @@ class AccountReceivablePenaltyComputation(models.Model):
                 and record.base_move_line_id.date_maturity
             ):
                 dt_date_due = record.base_move_line_id.date_maturity
-                dt_date = record.date
+                dt_date = record.date_cutoff
                 result = (dt_date - dt_date_due).days
             record.days_overdue = result
 
     @api.depends(
         "base_move_line_id",
         "date",
+        "date_cutoff",
     )
     def _compute_amount_residual(self):
         for record in self:
@@ -260,7 +283,7 @@ class AccountReceivablePenaltyComputation(models.Model):
                 line_ids = lines.ids
                 criteria = [
                     ("id", "in", line_ids),
-                    ("date", "<=", record.date),
+                    ("date", "<=", record.date_cutoff),
                 ]
                 payment_lines = self.env["account.move.line"].search(criteria)
                 for payment_line in payment_lines:
@@ -317,6 +340,18 @@ class AccountReceivablePenaltyComputation(models.Model):
                 "account_move_line_id": aml.id,
             }
         )
+
+    def _calculate_date_cutoff(self):
+        self.ensure_one()
+        res = False
+        localdict = self._get_default_localdict()
+        try:
+            ttype = self.type_id
+            safe_eval(ttype.date_cutoff_python, localdict, mode="exec", nocopy=True)
+            res = localdict["result"]
+        except Exception as error:
+            raise UserError(_("Error evaluating date cutoff conditions.\n %s") % error)
+        return res
 
     def _calculate_base_amount(self):
         self.ensure_one()

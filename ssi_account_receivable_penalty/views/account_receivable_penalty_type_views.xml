@@ -43,6 +43,16 @@
                             />
                     </group>
                 </page>
+                <page name="page_cutoff" string="Date Cutoff">
+                    <group name="grp_cutoff" colspan="4" col="2">
+                        <field
+                                string="Python"
+                                name="date_cutoff_python"
+                                colspan="4"
+                                widget="ace"
+                            />
+                    </group>
+                </page>
                 <page name="page_accounts" string="Accounting">
                     <group name="grp_accounts" colspan="4" col="2">
                         <field name="journal_id" />

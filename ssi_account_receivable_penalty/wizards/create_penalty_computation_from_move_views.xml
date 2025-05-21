@@ -7,7 +7,7 @@
     <field name="arch" type="xml">
         <form>
             <group name="form_1" colspan="4" col="2">
-                <field name="type_id" />
+                <field name="type_ids" widget="many2many_tags" />
                 <field name="date" />
             </group>
             <field name="account_move_ids" readonly="1" force_save="1" />

@@ -32,7 +32,7 @@
             name="binding_model_id"
             ref="ssi_account_receivable_penalty.model_account_receivable_penalty_computation"
         />
-    <field name="binding_view_types">list</field>
+    <field name="binding_view_types">form</field>
 </record>
 
 </odoo>

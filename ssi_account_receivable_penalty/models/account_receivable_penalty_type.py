@@ -62,6 +62,15 @@ result = 0.0""",
 result = True""",
         copy=True,
     )
+    date_cutoff_python = fields.Text(
+        string="Date Cutoff Python",
+        default="""# Available variables:
+#  - env: Odoo Environment on which the action is triggered.
+#  - document: Recordset of move lines.
+#  - result: Return result.
+result = 0""",
+        copy=True,
+    )
     cron_id = fields.Many2one(
         string="Cron",
         comodel_name="ir.cron",

@@ -16,6 +16,8 @@
             <xpath expr="//field[@name='user_id']" position='after'>
                 <field name="partner_id" />
                 <field name="type_id" />
+                <field name="date" />
+                <field name="date_cutoff" />
                 <field name="penalty_id" />
                 <field name="batch_id" />
                 <field name="base_move_line_id" />
@@ -47,6 +49,11 @@
                         context="{'group_by':'type_id'}"
                     />
                 <filter name="grp_date" string="Date" context="{'group_by':'date'}" />
+                <filter
+                        name="grp_date_cutoff"
+                        string="Date Cutoff"
+                        context="{'group_by':'date_cutoff'}"
+                    />
             </xpath>
         </data>
     </field>
@@ -67,6 +74,7 @@
                 <field name="batch_id" />
                 <field name="penalty_id" />
                 <field name="date" />
+                <field name="date_cutoff" />
                 <field name="days_overdue" />
                 <field name="amount_residual" />
                 <field name="base_amount" sum="Total Base Amount" />
@@ -83,6 +91,7 @@
         <tree>
             <field name="name" />
             <field name="date" />
+            <field name="date_cutoff" />
             <field name="company_currency_id" invisible="1" />
             <field name="days_overdue" />
             <field name="amount_residual" />
@@ -116,6 +125,7 @@
                     />
                 <field name="base_move_id" />
                 <field name="date" />
+                <field name="date_cutoff" />
             </xpath>
             <xpath expr="//group[@name='header_right']" position="inside">
                 <field name="days_overdue" />

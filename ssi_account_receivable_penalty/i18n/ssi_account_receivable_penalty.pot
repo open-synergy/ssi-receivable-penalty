@@ -596,6 +596,18 @@ msgid "Date"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__date_cutoff
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_search
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_type_view_form
+msgid "Date Cutoff"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__date_cutoff_python
+msgid "Date Cutoff Python"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__date_due
 msgid "Date Due"
 msgstr ""
@@ -665,6 +677,14 @@ msgstr ""
 #, python-format
 msgid ""
 "Error evaluating conditions.\n"
+" %s"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: code:addons/ssi_account_receivable_penalty/models/account_receivable_penalty_computation.py:0
+#, python-format
+msgid ""
+"Error evaluating date cutoff conditions.\n"
 " %s"
 msgstr ""
 

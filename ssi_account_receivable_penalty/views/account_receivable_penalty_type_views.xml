@@ -34,6 +34,15 @@
     <field name="arch" type="xml">
         <data>
             <xpath expr="//notebook/page[@name='note']" position="before">
+                <page name="page_general" string="General">
+                    <group name="grp_general_1" colspan="4" col="2">
+                        <field name="limit_max_penalty_ok" />
+                        <field
+                                name="max_penalty"
+                                attrs="{'invisible': [('limit_max_penalty_ok','=',False)]}"
+                            />
+                    </group>
+                </page>
                 <page name="page_accounts" string="Accounting">
                     <group name="grp_accounts" colspan="4" col="2">
                         <field name="journal_id" />

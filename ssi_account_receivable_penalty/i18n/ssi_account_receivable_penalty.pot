@@ -232,7 +232,6 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__amount_residual
-#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__amount_residual
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__amount_residual
 msgid "Amount Residual"
 msgstr ""
@@ -1097,6 +1096,16 @@ msgid "Partner"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__payment_amount_at_date
+msgid "Payment Amount at Date"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__payment_amount_to_date
+msgid "Payment Amount to Date"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__move_line_payment_ids
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_view_form
 msgid "Payments"
@@ -1219,6 +1228,11 @@ msgid "Residual"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__amount_residual
+msgid "Residual Amount"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty__user_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__user_id
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__user_id
@@ -1337,7 +1351,25 @@ msgstr ""
 
 #. module: ssi_account_receivable_penalty
 #: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree_2
+msgid "Total Payment Amount at Date"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree_2
+msgid "Total Payment Amount to Date"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree
 msgid "Total Penalty Amount"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree
+#: model_terms:ir.ui.view,arch_db:ssi_account_receivable_penalty.receivable_penalty_computation_view_tree_2
+msgid "Total Residual Amount"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty

@@ -71,12 +71,26 @@
                 <field name="partner_id" />
                 <field name="type_id" />
                 <field name="base_move_id" />
-                <field name="batch_id" />
-                <field name="penalty_id" />
-                <field name="date" />
+                <field name="batch_id" optional="hide" />
+                <field name="penalty_id" optional="hide" />
+                <field name="date" optional="hide" />
                 <field name="date_cutoff" />
                 <field name="days_overdue" />
-                <field name="amount_residual" />
+                <field
+                        name="payment_amount_to_date"
+                        sum="Total Payment Amount to Date"
+                        optional="hide"
+                    />
+                <field
+                        name="payment_amount_at_date"
+                        sum="Total Payment Amount at Date"
+                        optional="hide"
+                    />
+                <field
+                        name="amount_residual"
+                        sum="Total Residual Amount"
+                        optional="hide"
+                    />
                 <field name="base_amount" sum="Total Base Amount" />
                 <field name="penalty_amount" sum="Total Penalty Amount" />
             </xpath>
@@ -94,7 +108,17 @@
             <field name="date_cutoff" />
             <field name="company_currency_id" invisible="1" />
             <field name="days_overdue" />
-            <field name="amount_residual" />
+            <field
+                    name="payment_amount_to_date"
+                    sum="Total Payment Amount to Date"
+                    optional="hide"
+                />
+            <field
+                    name="payment_amount_at_date"
+                    sum="Total Payment Amount at Date"
+                    optional="hide"
+                />
+            <field name="amount_residual" sum="Total Residual Amount" optional="hide" />
             <field name="base_amount" />
             <field name="penalty_amount" />
             <field name="state" invisible="1" />
@@ -130,6 +154,8 @@
             <xpath expr="//group[@name='header_right']" position="inside">
                 <field name="days_overdue" />
                 <field name="amount_residual" />
+                <field name="payment_amount_to_date" />
+                <field name="payment_amount_at_date" />
                 <field name="base_amount" />
                 <field name="penalty_amount" />
             </xpath>

@@ -173,7 +173,21 @@ class AccountReceivablePenaltyComputation(models.Model):
         compute_sudo=True,
     )
     amount_residual = fields.Monetary(
-        string="Amount Residual",
+        string="Residual Amount",
+        compute="_compute_amount_residual",
+        currency_field="company_currency_id",
+        store=True,
+        compute_sudo=True,
+    )
+    payment_amount_to_date = fields.Monetary(
+        string="Payment Amount to Date",
+        compute="_compute_amount_residual",
+        currency_field="company_currency_id",
+        store=True,
+        compute_sudo=True,
+    )
+    payment_amount_at_date = fields.Monetary(
+        string="Payment Amount at Date",
         compute="_compute_amount_residual",
         currency_field="company_currency_id",
         store=True,
@@ -274,8 +288,8 @@ class AccountReceivablePenaltyComputation(models.Model):
     )
     def _compute_amount_residual(self):
         for record in self:
-            result = 0.0
-            if record.base_move_line_id and record.date:
+            amount_residual = payment_amount_to_date = payment_amount_at_date = 0.0
+            if record.base_move_line_id and record.date_cutoff:
                 base_ml = record.base_move_line_id
                 lines = base_ml.matched_debit_ids.mapped(
                     "debit_move_id"
@@ -287,13 +301,20 @@ class AccountReceivablePenaltyComputation(models.Model):
                 ]
                 payment_lines = self.env["account.move.line"].search(criteria)
                 for payment_line in payment_lines:
-                    result += payment_line.credit + payment_line.debit
-                result = base_ml.debit - result
-            record.amount_residual = result
+                    amount_residual += payment_line.credit + payment_line.debit
+                    if payment_line.date < record.date_cutoff:
+                        payment_amount_to_date += payment_line.credit
+                    elif payment_line.date == record.date_cutoff:
+                        payment_amount_at_date += payment_line.credit
+                amount_residual = base_ml.debit - amount_residual
+            record.amount_residual = amount_residual
+            record.payment_amount_to_date = payment_amount_to_date
+            record.payment_amount_at_date = payment_amount_at_date
 
     @api.onchange(
         "type_id",
         "base_move_line_id",
+        "date_cutoff",
     )
     def onchange_base_amount(self):
         self.base_amount = 0.0
@@ -304,6 +325,7 @@ class AccountReceivablePenaltyComputation(models.Model):
         "base_amount",
         "type_id",
         "base_move_line_id",
+        "date_cutoff",
     )
     def onchange_penalty_amount(self):
         self.penalty_amount = 0.0

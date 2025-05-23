@@ -927,6 +927,7 @@ msgid "Max Penalty"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__max_days_overdue
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__max_days_overdue
 msgid "Max. Days Overdue"
 msgstr ""
@@ -948,6 +949,7 @@ msgid "Messages"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__min_days_overdue
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__min_days_overdue
 msgid "Min. Days Overdue"
 msgstr ""
@@ -1437,11 +1439,13 @@ msgid "Untaxed"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__use_max_days_overdue
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__use_max_days_overdue
 msgid "Use Max. Days Overdue"
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_account_receivable_penalty_type__use_min_days_overdue
 #: model:ir.model.fields,field_description:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation__use_min_days_overdue
 msgid "Use Min. Days Overdue"
 msgstr ""

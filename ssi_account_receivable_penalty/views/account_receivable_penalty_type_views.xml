@@ -41,6 +41,10 @@
                                 name="max_penalty"
                                 attrs="{'invisible': [('limit_max_penalty_ok','=',False)]}"
                             />
+                        <field name="use_min_days_overdue" />
+                        <field name="min_days_overdue" />
+                        <field name="use_max_days_overdue" />
+                        <field name="max_days_overdue" />
                     </group>
                 </page>
                 <page name="page_cutoff" string="Date Cutoff">

@@ -100,6 +100,22 @@ result = 0""",
         required=True,
         default=0,
     )
+    use_min_days_overdue = fields.Boolean(
+        string="Use Min. Days Overdue",
+        default=False,
+    )
+    min_days_overdue = fields.Integer(
+        string="Min. Days Overdue",
+        default=0,
+    )
+    use_max_days_overdue = fields.Boolean(
+        string="Use Max. Days Overdue",
+        default=False,
+    )
+    max_days_overdue = fields.Integer(
+        string="Max. Days Overdue",
+        default=0,
+    )
 
     def onchange_max_penalty(self):
         if not self.limit_max_penalty_ok:
@@ -184,8 +200,11 @@ result = 0""",
         PenaltyComputation = self.env["account.receivable_penalty_computation"]
         _check = self._evaluate_python(move_line, self.condition_python)
         _check_limit = self._check_max_limit(move_line)
+        _check_check_days_overdue = self._check_check_days_overdue(
+            move_line, penalty_date
+        )
 
-        if _check and _check_limit:
+        if _check and _check_limit and _check_check_days_overdue:
             penalty = PenaltyComputation.create(
                 self._prepare_computation_data(move_line, penalty_date)
             )
@@ -209,4 +228,16 @@ result = 0""",
         if PenaltyComputation.search_count(criteria) >= self.max_penalty:
             result = False
 
+        return result
+
+    def _check_check_days_overdue(self, move_line, penalty_date):
+        self.ensure_one()
+        days_overdue = (penalty_date - move_line.date_maturity).days
+        result = True
+        if self.use_min_days_overdue:
+            if days_overdue < self.min_days_overdue:
+                result = False
+        if self.use_max_days_overdue:
+            if days_overdue > self.max_days_overdue:
+                result = False
         return result

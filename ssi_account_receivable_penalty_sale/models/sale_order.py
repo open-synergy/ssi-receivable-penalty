@@ -54,6 +54,10 @@ class SaleOrder(models.Model):
         res += policy_field
         return res
 
+    @api.depends(
+        "invoice_ids",
+        "invoice_ids.receivable_penalty_ids",
+    )
     def _compute_receivable_penalty_ids(self):
         for record in self:
             result = []

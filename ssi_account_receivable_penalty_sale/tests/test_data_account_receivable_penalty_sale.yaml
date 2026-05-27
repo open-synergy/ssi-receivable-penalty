@@ -1,0 +1,43 @@
+scenarios:
+  - name: "Account Receivable Penalty Sale - Sale order with penalty fields"
+    steps:
+      - step: "Create partner for sale"
+        action: "create"
+        model: "res.partner"
+        save_as: "sale_partner"
+        values:
+          name: "Test Sale Partner ARP"
+          customer_rank: 1
+
+      - step: "Create sale order type"
+        action: "create"
+        model: "sale_order_type"
+        save_as: "sale_order_type"
+        values:
+          name: "Test Sale Order Type ARP"
+          code: "TSOTA"
+
+      - step: "Create sale order"
+        action: "create"
+        model: "sale.order"
+        save_as: "sale_order"
+        as_user: "base.user_admin"
+        values:
+          partner_id: "EVAL: registry['sale_partner'].id"
+          type_id: "EVAL: registry['sale_order_type'].id"
+
+      - step: "Assert sale order has zero penalty count"
+        action: "assert"
+        target: "sale_order"
+        asserts:
+          receivable_penalty_count:
+            type: "value"
+            expected: 0
+
+      - step: "Assert sale order penalty_ok is accessible"
+        action: "assert"
+        target: "sale_order"
+        asserts:
+          receivable_penalty_ok:
+            type: "value"
+            expected: true

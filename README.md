@@ -18,8 +18,8 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[ssi_account_receivable_penalty](ssi_account_receivable_penalty/) | 14.0.3.8.0 |  | Account Receivable Penalty
-[ssi_account_receivable_penalty_sale](ssi_account_receivable_penalty_sale/) | 14.0.1.2.0 |  | Account Receivable Penalty + Sale Order Integration
+[ssi_account_receivable_penalty](ssi_account_receivable_penalty/) | 14.0.3.9.0 |  | Account Receivable Penalty
+[ssi_account_receivable_penalty_sale](ssi_account_receivable_penalty_sale/) | 14.0.1.3.0 |  | Account Receivable Penalty + Sale Order Integration
 
 [//]: # (end addons)
 

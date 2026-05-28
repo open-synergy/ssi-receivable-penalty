@@ -1,3 +1,4 @@
+odoo-yaml-test
 odoo14-addon-ssi-account-move-line-day-overdue
 odoo14-addon-ssi-company-currency-mixin
 odoo14-addon-ssi-transaction-cancel-mixin

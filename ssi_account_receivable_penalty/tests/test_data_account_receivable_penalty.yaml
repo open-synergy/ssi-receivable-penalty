@@ -322,3 +322,232 @@ scenarios:
           move_id:
             type: "value"
             operator: "is_truthy"
+
+      - step: "Call action_done on penalty"
+        action: "call"
+        target: "penalty"
+        method: "action_done"
+        as_user: "base.user_admin"
+
+      - step: "Invalidate cache after done"
+        action: "call"
+        target: "penalty"
+        method: "invalidate_cache"
+
+      - step: "Assert penalty in done state"
+        action: "assert"
+        target: "penalty"
+        asserts:
+          state:
+            type: "value"
+            expected: "done"
+
+  - name: "Batch Receivable Penalty Computation - Full workflow"
+    steps:
+      - step: "Create receivable account for batch"
+        action: "create"
+        model: "account.account"
+        save_as: "batch_recv_acc"
+        values:
+          name: "Test Batch Recv Acc"
+          code: "TBRP01"
+          user_type_id: "EVAL: env.ref('account.data_account_type_receivable').id"
+          internal_type: "receivable"
+          reconcile: true
+
+      - step: "Create income account for batch"
+        action: "create"
+        model: "account.account"
+        save_as: "batch_income_acc"
+        values:
+          name: "Test Batch Income Acc"
+          code: "TBRP02"
+          user_type_id: "EVAL: env.ref('account.data_account_type_other_income').id"
+          internal_type: "other"
+
+      - step: "Create base receivable account for batch"
+        action: "create"
+        model: "account.account"
+        save_as: "batch_base_acc"
+        values:
+          name: "Test Batch Base Acc"
+          code: "TBRP03"
+          user_type_id: "EVAL: env.ref('account.data_account_type_receivable').id"
+          internal_type: "receivable"
+          reconcile: true
+
+      - step: "Create balance account for batch"
+        action: "create"
+        model: "account.account"
+        save_as: "batch_balance_acc"
+        values:
+          name: "Test Batch Balance Acc"
+          code: "TBRP04"
+          user_type_id: "EVAL: env.ref('account.data_account_type_other_income').id"
+          internal_type: "other"
+
+      - step: "Create penalty journal for batch"
+        action: "create"
+        model: "account.journal"
+        save_as: "batch_penalty_jnl"
+        values:
+          name: "Test Batch Penalty Journal"
+          code: "TBPJNL"
+          type: "general"
+
+      - step: "Create general journal for batch"
+        action: "create"
+        model: "account.journal"
+        save_as: "batch_general_jnl"
+        values:
+          name: "Test Batch General Journal"
+          code: "TBGJNL"
+          type: "general"
+
+      - step: "Create partner for batch"
+        action: "create"
+        model: "res.partner"
+        save_as: "batch_partner"
+        values:
+          name: "Test Batch Partner ARP"
+          customer_rank: 1
+
+      - step: "Create penalty type for batch"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "batch_penalty_type"
+        values:
+          name: "Test Batch Penalty Type"
+          code: "TBPT01"
+          journal_id: "EVAL: registry['batch_penalty_jnl'].id"
+          receivable_account_id: "EVAL: registry['batch_recv_acc'].id"
+          income_account_id: "EVAL: registry['batch_income_acc'].id"
+          account_ids:
+            - "EVAL: registry['batch_base_acc'].id"
+          base_amount_python: |
+            result = 500.0
+          penalty_amount_python: |
+            result = 10.0
+          date_cutoff_python: |
+            result = 0
+
+      - step: "Create journal entry with receivable line for batch"
+        action: "create"
+        model: "account.move"
+        save_as: "batch_move"
+        as_user: "base.user_admin"
+        values:
+          journal_id: "EVAL: registry['batch_general_jnl'].id"
+          date: "2024-01-15"
+          line_ids:
+            - "EVAL: (0, 0, {'name': 'Receivable line', 'account_id':
+              registry['batch_base_acc'].id, 'partner_id': registry['batch_partner'].id,
+              'debit': 2000.0, 'credit': 0.0, 'date_maturity': date(2024, 2, 15)})"
+            - "EVAL: (0, 0, {'name': 'Balance line', 'account_id':
+              registry['batch_balance_acc'].id, 'debit': 0.0, 'credit': 2000.0})"
+
+      - step: "Post journal entry for batch"
+        action: "call"
+        target: "batch_move"
+        method: "action_post"
+        as_user: "base.user_admin"
+
+      - step: "Create batch computation"
+        action: "create"
+        model: "batch_receivable_penalty_computation"
+        save_as: "batch"
+        as_user: "base.user_admin"
+        values:
+          type_id: "EVAL: registry['batch_penalty_type'].id"
+          date: "2024-06-01"
+
+      - step: "Assert batch in draft"
+        action: "assert"
+        target: "batch"
+        asserts:
+          state:
+            type: "value"
+            expected: "draft"
+
+      - step: "Compute batch details"
+        action: "call"
+        target: "batch"
+        method: "action_compute_computation"
+        as_user: "base.user_admin"
+
+      - step: "Invalidate cache after compute"
+        action: "call"
+        target: "batch"
+        method: "invalidate_cache"
+
+      - step: "Assert batch detail was created"
+        action: "assert"
+        target: "batch"
+        asserts:
+          detail_ids:
+            type: "o2m"
+            check: "count"
+            expected_count: 1
+
+      - step: "Confirm batch"
+        action: "call"
+        target: "batch"
+        method: "action_confirm"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "confirm"
+
+      - step: "Invalidate cache after batch confirm"
+        action: "call"
+        target: "batch"
+        method: "invalidate_cache"
+
+      - step: "Approve batch to open"
+        action: "call"
+        target: "batch"
+        method: "action_approve_approval"
+        as_user: "base.user_admin"
+        asserts:
+          state:
+            type: "value"
+            expected: "open"
+
+      - step: "Invalidate cache after batch open"
+        action: "call"
+        target: "batch"
+        method: "invalidate_cache"
+
+      - step: "Assert computations were created from batch"
+        action: "assert"
+        target: "batch"
+        asserts:
+          num_computation:
+            type: "value"
+            operator: "gt"
+            expected: 0
+
+      - step: "Get the batch detail"
+        action: "search"
+        model: "batch_receivable_penalty_computation.detail"
+        domain:
+          - ["batch_id", "=", "EVAL: registry['batch'].id"]
+        save_as: "batch_detail"
+        limit: 1
+
+      - step: "Assert batch detail has computation"
+        action: "assert"
+        target: "batch_detail"
+        asserts:
+          computation_id:
+            type: "value"
+            operator: "is_truthy"
+
+      - step: "Assert create_computation_ok is true"
+        action: "assert"
+        target: "batch_detail"
+        asserts:
+          create_computation_ok:
+            type: "value"
+            expected: true

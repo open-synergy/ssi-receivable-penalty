@@ -1342,6 +1342,11 @@ msgid ""
 msgstr ""
 
 #. module: ssi_account_receivable_penalty
+#: model:account.receivable_penalty_type,name:ssi_account_receivable_penalty.demo_recaivable_penalty1
+msgid "Test - (test)"
+msgstr ""
+
+#. module: ssi_account_receivable_penalty
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty__base_move_id
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_account_receivable_penalty_computation__base_move_id
 #: model:ir.model.fields,help:ssi_account_receivable_penalty.field_batch_receivable_penalty_computation_detail__base_move_id

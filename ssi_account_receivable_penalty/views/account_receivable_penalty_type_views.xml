@@ -12,7 +12,13 @@
         />
     <field name="mode">primary</field>
     <field name="arch" type="xml">
-        <data />
+        <data>
+            <xpath expr="//search" position="inside">
+                <field name="journal_id" />
+                <field name="receivable_account_id" />
+                <field name="income_account_id" />
+            </xpath>
+        </data>
     </field>
 </record>
 

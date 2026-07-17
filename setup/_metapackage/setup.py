@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-ssi_account_receivable_penalty',
+        'odoo14-addon-ssi_account_receivable_penalty_operating_unit',
         'odoo14-addon-ssi_account_receivable_penalty_sale',
     ],
     classifiers=[

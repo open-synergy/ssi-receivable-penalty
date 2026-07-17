@@ -1,0 +1,699 @@
+scenarios:
+  - name: "Account Receivable Penalty - Operating Unit is set"
+    steps:
+      - step: "Create receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test ARP OU Receivable Account"
+          code: "ARP1RA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create income account"
+        action: "create"
+        model: "account.account"
+        save_as: "income_account"
+        values:
+          name: "Test ARP OU Income Account"
+          code: "ARP1IA"
+          user_type_id: "REF: account.data_account_type_other_income"
+
+      - step: "Create base receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "base_account"
+        values:
+          name: "Test ARP OU Base Account"
+          code: "ARP1BA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create penalty journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test ARP OU Journal"
+          code: "ARP1J"
+          type: "general"
+
+      - step: "Create partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        values:
+          name: "Test ARP OU Partner"
+          customer_rank: 1
+
+      - step: "Create penalty type"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "penalty_type"
+        values:
+          name: "Test ARP OU Type"
+          code: "TARP1"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          account_ids:
+            - "REC: base_account.id"
+
+      - step: "Create manual journal entry with a base receivable line"
+        action: "create"
+        model: "account.move"
+        save_as: "manual_move"
+        as_user: "base.user_admin"
+        values:
+          journal_id: "REC: journal.id"
+          date: "2024-01-01"
+          line_ids:
+            - - 0
+              - 0
+              - name: "Base receivable line"
+                account_id: "REC: base_account.id"
+                partner_id: "REC: partner.id"
+                debit: 1000.0
+                credit: 0.0
+            - - 0
+              - 0
+              - name: "Balance line"
+                account_id: "REC: income_account.id"
+                debit: 0.0
+                credit: 1000.0
+
+      - step: "Get the base move line"
+        action: "search"
+        model: "account.move.line"
+        domain:
+          - ["move_id", "=", "REC: manual_move.id"]
+          - ["account_id", "=", "REC: base_account.id"]
+          - ["debit", ">", 0]
+        save_as: "base_move_line"
+        limit: 1
+
+      - step: "Create account_receivable_penalty with operating_unit_id"
+        action: "create"
+        model: "account.receivable_penalty"
+        save_as: "penalty"
+        as_user: "base.user_admin"
+        values:
+          partner_id: "REC: partner.id"
+          type_id: "REC: penalty_type.id"
+          date: "2024-01-01"
+          date_due: "2024-01-31"
+          base_move_line_id: "REC: base_move_line.id"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          operating_unit_id: "REF: operating_unit.main_operating_unit"
+
+      - step: "Assert account_receivable_penalty operating_unit_id is set"
+        action: "assert"
+        target: "penalty"
+        asserts:
+          operating_unit_id:
+            type: "value"
+            operator: "is_truthy"
+
+  - name: "Account Receivable Penalty - ir.rule restricts access by operating unit"
+    steps:
+      - step: "Create receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test ARP OU Rule Receivable Account"
+          code: "ARP2RA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create income account"
+        action: "create"
+        model: "account.account"
+        save_as: "income_account"
+        values:
+          name: "Test ARP OU Rule Income Account"
+          code: "ARP2IA"
+          user_type_id: "REF: account.data_account_type_other_income"
+
+      - step: "Create base receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "base_account"
+        values:
+          name: "Test ARP OU Rule Base Account"
+          code: "ARP2BA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create penalty journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test ARP OU Rule Journal"
+          code: "ARP2J"
+          type: "general"
+
+      - step: "Create partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        values:
+          name: "Test ARP OU Rule Partner"
+          customer_rank: 1
+
+      - step: "Create penalty type"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "penalty_type"
+        values:
+          name: "Test ARP OU Rule Type"
+          code: "TARP2"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          account_ids:
+            - "REC: base_account.id"
+
+      - step: "Create manual journal entry with a base receivable line"
+        action: "create"
+        model: "account.move"
+        save_as: "manual_move"
+        as_user: "base.user_admin"
+        values:
+          journal_id: "REC: journal.id"
+          date: "2024-01-01"
+          line_ids:
+            - - 0
+              - 0
+              - name: "Base receivable line"
+                account_id: "REC: base_account.id"
+                partner_id: "REC: partner.id"
+                debit: 1000.0
+                credit: 0.0
+            - - 0
+              - 0
+              - name: "Balance line"
+                account_id: "REC: income_account.id"
+                debit: 0.0
+                credit: 1000.0
+
+      - step: "Get the base move line"
+        action: "search"
+        model: "account.move.line"
+        domain:
+          - ["move_id", "=", "REC: manual_move.id"]
+          - ["account_id", "=", "REC: base_account.id"]
+          - ["debit", ">", 0]
+        save_as: "base_move_line"
+        limit: 1
+
+      - step: "Create account_receivable_penalty with main operating unit"
+        action: "create"
+        model: "account.receivable_penalty"
+        save_as: "penalty"
+        as_user: "base.user_admin"
+        values:
+          partner_id: "REC: partner.id"
+          type_id: "REC: penalty_type.id"
+          date: "2024-01-01"
+          date_due: "2024-01-31"
+          base_move_line_id: "REC: base_move_line.id"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          operating_unit_id: "REF: operating_unit.main_operating_unit"
+
+      - step: "Create user restricted to a different operating unit"
+        action: "create"
+        model: "res.users"
+        save_as: "restricted_user"
+        values:
+          name: "Restricted Account Receivable Penalty OU User"
+          login: "restricted_penalty_ou_user@example.com"
+          groups_id:
+            - - 6
+              - 0
+              - - "REF: base.group_user"
+                - "REF: ssi_account_receivable_penalty.receivable_penalty_user_group"
+                - "REF:
+                  ssi_account_receivable_penalty_operating_unit.account_receivable_penalty_ou_group"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "REF: operating_unit.b2b_operating_unit"
+
+      - step: "Restricted user cannot see the record"
+        action: "search"
+        model: "account.receivable_penalty"
+        domain: [["id", "=", "REC: penalty.id"]]
+        save_as: "search_result"
+        as_user: "restricted_user"
+        expect_count: 0
+
+      - step: "Restricted user cannot write the record"
+        action: "write"
+        target: "penalty"
+        as_user: "restricted_user"
+        expect_error:
+          type: "AccessError"
+        values:
+          date_due: "2024-02-28"
+
+  - name: "Account Receivable Penalty Computation - Operating Unit is set"
+    steps:
+      - step: "Create receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test ARC OU Receivable Account"
+          code: "ARC1RA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create income account"
+        action: "create"
+        model: "account.account"
+        save_as: "income_account"
+        values:
+          name: "Test ARC OU Income Account"
+          code: "ARC1IA"
+          user_type_id: "REF: account.data_account_type_other_income"
+
+      - step: "Create base receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "base_account"
+        values:
+          name: "Test ARC OU Base Account"
+          code: "ARC1BA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create penalty journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test ARC OU Journal"
+          code: "ARC1J"
+          type: "general"
+
+      - step: "Create partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        values:
+          name: "Test ARC OU Partner"
+          customer_rank: 1
+
+      - step: "Create penalty type"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "penalty_type"
+        values:
+          name: "Test ARC OU Type"
+          code: "TARC1"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          account_ids:
+            - "REC: base_account.id"
+
+      - step: "Create manual journal entry with a base receivable line"
+        action: "create"
+        model: "account.move"
+        save_as: "manual_move"
+        as_user: "base.user_admin"
+        values:
+          journal_id: "REC: journal.id"
+          date: "2024-01-01"
+          line_ids:
+            - - 0
+              - 0
+              - name: "Base receivable line"
+                account_id: "REC: base_account.id"
+                partner_id: "REC: partner.id"
+                debit: 1000.0
+                credit: 0.0
+            - - 0
+              - 0
+              - name: "Balance line"
+                account_id: "REC: income_account.id"
+                debit: 0.0
+                credit: 1000.0
+
+      - step: "Get the base move line"
+        action: "search"
+        model: "account.move.line"
+        domain:
+          - ["move_id", "=", "REC: manual_move.id"]
+          - ["account_id", "=", "REC: base_account.id"]
+          - ["debit", ">", 0]
+        save_as: "base_move_line"
+        limit: 1
+
+      - step: "Create account_receivable_penalty_computation with operating_unit_id"
+        action: "create"
+        model: "account.receivable_penalty_computation"
+        save_as: "computation"
+        as_user: "base.user_admin"
+        values:
+          partner_id: "REC: partner.id"
+          type_id: "REC: penalty_type.id"
+          base_move_line_id: "REC: base_move_line.id"
+          date: "2024-01-01"
+          base_amount: 1000.0
+          penalty_amount: 20.0
+          operating_unit_id: "REF: operating_unit.main_operating_unit"
+
+      - step: "Assert account_receivable_penalty_computation operating_unit_id is set"
+        action: "assert"
+        target: "computation"
+        asserts:
+          operating_unit_id:
+            type: "value"
+            operator: "is_truthy"
+
+  - name: >-
+      Account Receivable Penalty Computation - ir.rule restricts access by operating
+      unit
+    steps:
+      - step: "Create receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test ARC OU Rule Receivable Account"
+          code: "ARC2RA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create income account"
+        action: "create"
+        model: "account.account"
+        save_as: "income_account"
+        values:
+          name: "Test ARC OU Rule Income Account"
+          code: "ARC2IA"
+          user_type_id: "REF: account.data_account_type_other_income"
+
+      - step: "Create base receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "base_account"
+        values:
+          name: "Test ARC OU Rule Base Account"
+          code: "ARC2BA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create penalty journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test ARC OU Rule Journal"
+          code: "ARC2J"
+          type: "general"
+
+      - step: "Create partner"
+        action: "create"
+        model: "res.partner"
+        save_as: "partner"
+        values:
+          name: "Test ARC OU Rule Partner"
+          customer_rank: 1
+
+      - step: "Create penalty type"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "penalty_type"
+        values:
+          name: "Test ARC OU Rule Type"
+          code: "TARC2"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          account_ids:
+            - "REC: base_account.id"
+
+      - step: "Create manual journal entry with a base receivable line"
+        action: "create"
+        model: "account.move"
+        save_as: "manual_move"
+        as_user: "base.user_admin"
+        values:
+          journal_id: "REC: journal.id"
+          date: "2024-01-01"
+          line_ids:
+            - - 0
+              - 0
+              - name: "Base receivable line"
+                account_id: "REC: base_account.id"
+                partner_id: "REC: partner.id"
+                debit: 1000.0
+                credit: 0.0
+            - - 0
+              - 0
+              - name: "Balance line"
+                account_id: "REC: income_account.id"
+                debit: 0.0
+                credit: 1000.0
+
+      - step: "Get the base move line"
+        action: "search"
+        model: "account.move.line"
+        domain:
+          - ["move_id", "=", "REC: manual_move.id"]
+          - ["account_id", "=", "REC: base_account.id"]
+          - ["debit", ">", 0]
+        save_as: "base_move_line"
+        limit: 1
+
+      - step: "Create account_receivable_penalty_computation with main operating unit"
+        action: "create"
+        model: "account.receivable_penalty_computation"
+        save_as: "computation"
+        as_user: "base.user_admin"
+        values:
+          partner_id: "REC: partner.id"
+          type_id: "REC: penalty_type.id"
+          base_move_line_id: "REC: base_move_line.id"
+          date: "2024-01-01"
+          base_amount: 1000.0
+          penalty_amount: 20.0
+          operating_unit_id: "REF: operating_unit.main_operating_unit"
+
+      - step: "Create user restricted to a different operating unit"
+        action: "create"
+        model: "res.users"
+        save_as: "restricted_user"
+        values:
+          name: "Restricted Account Receivable Penalty Computation OU User"
+          login: "restricted_penalty_computation_ou_user@example.com"
+          groups_id:
+            - - 6
+              - 0
+              - - "REF: base.group_user"
+                - "REF:
+                  ssi_account_receivable_penalty.receivable_penalty_comp_user_group"
+                - "REF:
+                  ssi_account_receivable_penalty_operating_unit.account_receivable_penalty_computation_ou_group"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "REF: operating_unit.b2b_operating_unit"
+
+      - step: "Restricted user cannot see the record"
+        action: "search"
+        model: "account.receivable_penalty_computation"
+        domain: [["id", "=", "REC: computation.id"]]
+        save_as: "search_result"
+        as_user: "restricted_user"
+        expect_count: 0
+
+      - step: "Restricted user cannot write the record"
+        action: "write"
+        target: "computation"
+        as_user: "restricted_user"
+        expect_error:
+          type: "AccessError"
+        values:
+          penalty_amount: 30.0
+
+  - name: "Batch Receivable Penalty Computation - Operating Unit is set"
+    steps:
+      - step: "Create receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test ARB OU Receivable Account"
+          code: "ARB1RA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create income account"
+        action: "create"
+        model: "account.account"
+        save_as: "income_account"
+        values:
+          name: "Test ARB OU Income Account"
+          code: "ARB1IA"
+          user_type_id: "REF: account.data_account_type_other_income"
+
+      - step: "Create base receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "base_account"
+        values:
+          name: "Test ARB OU Base Account"
+          code: "ARB1BA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create penalty journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test ARB OU Journal"
+          code: "ARB1J"
+          type: "general"
+
+      - step: "Create penalty type"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "penalty_type"
+        values:
+          name: "Test ARB OU Type"
+          code: "TARB1"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          account_ids:
+            - "REC: base_account.id"
+
+      - step: "Create batch_receivable_penalty_computation with operating_unit_id"
+        action: "create"
+        model: "batch_receivable_penalty_computation"
+        save_as: "batch"
+        as_user: "base.user_admin"
+        values:
+          type_id: "REC: penalty_type.id"
+          date: "2024-01-01"
+          operating_unit_id: "REF: operating_unit.main_operating_unit"
+
+      - step: "Assert batch_receivable_penalty_computation operating_unit_id is set"
+        action: "assert"
+        target: "batch"
+        asserts:
+          operating_unit_id:
+            type: "value"
+            operator: "is_truthy"
+
+  - name: >-
+      Batch Receivable Penalty Computation - ir.rule restricts access by operating unit
+    steps:
+      - step: "Create receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "receivable_account"
+        values:
+          name: "Test ARB OU Rule Receivable Account"
+          code: "ARB2RA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create income account"
+        action: "create"
+        model: "account.account"
+        save_as: "income_account"
+        values:
+          name: "Test ARB OU Rule Income Account"
+          code: "ARB2IA"
+          user_type_id: "REF: account.data_account_type_other_income"
+
+      - step: "Create base receivable account"
+        action: "create"
+        model: "account.account"
+        save_as: "base_account"
+        values:
+          name: "Test ARB OU Rule Base Account"
+          code: "ARB2BA"
+          user_type_id: "REF: account.data_account_type_receivable"
+          reconcile: true
+
+      - step: "Create penalty journal"
+        action: "create"
+        model: "account.journal"
+        save_as: "journal"
+        values:
+          name: "Test ARB OU Rule Journal"
+          code: "ARB2J"
+          type: "general"
+
+      - step: "Create penalty type"
+        action: "create"
+        model: "account.receivable_penalty_type"
+        save_as: "penalty_type"
+        values:
+          name: "Test ARB OU Rule Type"
+          code: "TARB2"
+          journal_id: "REC: journal.id"
+          receivable_account_id: "REC: receivable_account.id"
+          income_account_id: "REC: income_account.id"
+          account_ids:
+            - "REC: base_account.id"
+
+      - step: "Create batch_receivable_penalty_computation with main operating unit"
+        action: "create"
+        model: "batch_receivable_penalty_computation"
+        save_as: "batch"
+        as_user: "base.user_admin"
+        values:
+          type_id: "REC: penalty_type.id"
+          date: "2024-01-01"
+          operating_unit_id: "REF: operating_unit.main_operating_unit"
+
+      - step: "Create user restricted to a different operating unit"
+        action: "create"
+        model: "res.users"
+        save_as: "restricted_user"
+        values:
+          name: "Restricted Batch Receivable Penalty Computation OU User"
+          login: "restricted_batch_penalty_computation_ou_user@example.com"
+          groups_id:
+            - - 6
+              - 0
+              - - "REF: base.group_user"
+                - "REF:
+                  ssi_account_receivable_penalty.batch_receivable_penalty_computation_user_group"
+                - "REF:
+                  ssi_account_receivable_penalty_operating_unit.batch_receivable_penalty_computation_ou_group"
+          assigned_operating_unit_ids:
+            - - 6
+              - 0
+              - - "REF: operating_unit.b2b_operating_unit"
+
+      - step: "Restricted user cannot see the record"
+        action: "search"
+        model: "batch_receivable_penalty_computation"
+        domain: [["id", "=", "REC: batch.id"]]
+        save_as: "search_result"
+        as_user: "restricted_user"
+        expect_count: 0
+
+      - step: "Restricted user cannot write the record"
+        action: "write"
+        target: "batch"
+        as_user: "restricted_user"
+        expect_error:
+          type: "AccessError"
+        values:
+          date: "2024-02-01"
